@@ -5,14 +5,36 @@ import numpy
 
 
 def daily_average(data, monitoring_station:str, pollutant:str):
-    """Parameters:                                                
-        data = array 2D?
-        monitoring_station = String of the name of the monitoring station
-        polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm        
     """
-
+    Parameters:                                                
+    - data = array 2D?
+    - monitoring_station = String of the name of the monitoring station
+    - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm        
+    """
+    
+    match(pollutant):
+        case "no":
+            pol_num = 2
+        case "PM10":
+            pol_num = 3
+        case "PM25":
+            pol_num = 4
 
     daily_avg = []
+    count, calc_avg, no_data= 0,0,0
+    for row in data:
+        if row[pol_num]== "No data":
+            print("No data")
+            no_data += 1
+        elif count == 23:
+            count,no_data = 0,0
+            print(calc_avg)
+            daily_avg.append(calc_avg/(24-no_data))
+            calc_avg =float(row[pol_num])
+        else:
+            count += 1
+            calc_avg += float(row[pol_num])
+    print(daily_avg)
 
     return daily_avg
     ## Your code goes here

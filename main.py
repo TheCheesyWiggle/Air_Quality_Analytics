@@ -9,10 +9,9 @@ import os
 
 def main_menu():
     """
-    1) User input assigned to the choice variable
-    2) Match statement checks each case and executes accordingly and if the input doesnt match it outputs an error message and returns to main menu
+    -  User input assigned to the choice variable
+    -  Match statement checks each case and executes accordingly and if the input doesnt match it outputs an error message and returns to main menu
     """
-    csv_to_array("Pollution-London Harlington.csv")
     choice = input("Main Menu:"
                 +"\n\tR - Access to PR module"
                 +"\n\tI - Access to MI module"
@@ -39,7 +38,7 @@ def main_menu():
 def monitoring_menu():
     """Your documentation goes here"""
     choice = input("Monitoring Menu:"
-                +"\nChoice:")
+                +"\nChoice:").upper()
 
 def reporting_menu():
     """Your documentation goes here"""
@@ -51,7 +50,7 @@ def reporting_menu():
         +"\n\tPH - Access to peak hour of polution for a given date"
         +"\n\tDA - Access to daily average"
         +"\n\tM - Main Menu"
-        +"\nChoice:")
+        +"\nChoice:").upper()
     match(choice):
         case "DA":
             monitoring_station = input("Input monitoring station: ")
@@ -76,7 +75,7 @@ def reporting_menu():
 def intelligence_menu():
     """Your documentation goes here"""
     choice = input("Intelligence Menu:"
-                +"\nChoice:")
+                +"\nChoice:").upper()
 
 def about():
     """Your documentation goes here"""
@@ -95,15 +94,13 @@ def csv_to_array(filename):
     rows = []
     with open(cwd+'\\data\\'+filename, 'r') as csvfile:
         csvreader = csv.reader(csvfile)
+        next(csvreader)
         for row in csvreader:
-            rows.append(row)
-    print("Total no. of rows: %d"%(csvreader.line_num))  
-    print(len(rows))
-    print('\nRows are:\n')
-    for row in rows[:5]:
-        for col in row:
-            print("%100s"%col,end=" "),
-        print('\n')
+            columns = []
+            for col in row:
+                columns.append(col)
+            rows.append(columns)
+    return rows
 
 if __name__ == '__main__':
     main_menu()
