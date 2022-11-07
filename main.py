@@ -105,7 +105,5 @@ def csv_to_array(filename):
             print("%100s"%col,end=" "),
         print('\n')
 
-
-
 if __name__ == '__main__':
     main_menu()
