@@ -57,7 +57,7 @@ def reporting_menu():
             pollutant = input("Input polluntant: ")
             data = csv_to_array("Pollution-"+monitoring_station+".csv")
 
-            reporting.daily_average(data,monitoring_station,pollutant)
+            print(reporting.daily_average(data,monitoring_station,pollutant))
         case "DM":
             reporting.daily_median()
         case "HA":
