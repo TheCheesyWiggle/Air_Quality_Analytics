@@ -4,12 +4,21 @@ import numpy
 # the signatures determined by the project specification
 
 
-def daily_average(data, monitoring_station:str, pollutant:str):
+def daily_average(data, monitoring_station:str, pollutant:str) -> list:
     """
-    Parameters:                                                
-    - data = array 2D?
+    Parameters: 
+    -                                               
+    - data = 2d array
     - monitoring_station = String of the name of the monitoring station
-    - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm        
+    - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
+    \n
+    Code:
+    - 
+    - Match Statement assigns numerical value to pollutant based on its collumn
+    - initalises empty array to store daily averages and initalises counters for the loop/ if statement
+    - Loops through data
+    - If statement checks if there is data and if we havent iterated through the day yet and performs operation accordingly
+    - returns array with daily averages
     """
     
     match(pollutant):
@@ -34,13 +43,18 @@ def daily_average(data, monitoring_station:str, pollutant:str):
         else:
             count += 1
             calc_avg += float(row[pol_num])
-    print(daily_avg)
-
     return daily_avg
-    ## Your code goes here
 
 def daily_median(data, monitoring_station, pollutant):
-    """Your documentation goes here"""
+    """
+    Parameters:                                                
+    - data = 2d array
+    - monitoring_station = String of the name of the monitoring station
+    - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
+    \n
+    Code: 
+    - gd
+    """
     
     ## Your code goes here
 def hourly_average(data, monitoring_station, pollutant):
@@ -65,6 +79,5 @@ def fill_missing_data(data, new_value,  monitoring_station,pollutant):
     """Your documentation goes here"""
     
     ## Your code goes here
-
 
 
