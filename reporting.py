@@ -90,14 +90,26 @@ def hourly_average(data:list, monitoring_station:str, pollutant:str)->list:
     - Call function to get pollutant row number
     - Initializes:
         - hourly_average array
-        - hours array
-        - temp array
+        - hours array empty 2d array with 24 rows
         - counter
-    - Loops through each line and for every 24 items it a
+    - Loops through each line and adds hourly values too corresponding columns
+    - Loops through rows of hours and appends their median to hourly_average
     """
     pol_num = pollutant_num(pollutant)
     hourly_average=[]
-    #2D array
+    hours = [[]*24]
+    count = 1
+
+    for row in data:
+        # Possible issues with modulos function
+        hours.append([count%24,row[pol_num]])
+    
+    for row in hours:
+        hourly_average.append(np.average(row))
+    print(hourly_average)
+
+    return hourly_average
+
 
 def monthly_average(data:list, monitoring_station:str, pollutant:str)->list:
     """Your documentation goes here"""
