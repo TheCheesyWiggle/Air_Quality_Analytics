@@ -3,8 +3,10 @@
 # the signatures determined by the project specification
 
 
-def sumvalues(values):
-    """Your documentation goes here"""    
+def sumvalues(values:list)->int:
+    """
+    Parameters
+    """    
     ## Your code goes here
 
 
