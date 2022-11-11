@@ -79,7 +79,7 @@ def reporting_menu():
         +"\n\t0 - Nitric Oxide"
         +"\n\t1 - PM10"
         +"\n\t2 - PM25"
-        +"\nChoice: ") +2
+        +"\nChoice: ")+2
 
 
     match(choice):
