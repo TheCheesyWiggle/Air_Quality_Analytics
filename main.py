@@ -1,4 +1,5 @@
 
+import utils
 import reporting
 # This is a template. 
 # You should modify the functions below to match
@@ -6,7 +7,6 @@ import reporting
 
 
 def main_menu():
-    print(reporting.csv_to_array("/data/Pollution-London Harlington.csv"))
     """
     Code:
     -
@@ -60,11 +60,19 @@ def reporting_menu():
         +"\n\tM - Main Menu"
         +"\nChoice: ").upper()
 
-    monitoring_station = input("Choose Monitoring Station:"
+    station = input("Choose Monitoring Station:"
         +"\n\t0 - London Harlington"
         +"\n\t1 - London Marlylebone"
         +"\n\t2 - London N Kensington"
         +"\nChoice: ")
+    
+    match(station):
+        case 0:
+            monitoring_station = "London Harlington"
+        case 1:
+            monitoring_station = "London Marlylebone"
+        case 2:
+            monitoring_station = "London N Kensington"
 
     pollutant = input("Choose Pollutant:"
         +"\n\t0 - Nitric Oxide"
@@ -75,7 +83,7 @@ def reporting_menu():
 
     match(choice):
         case "DA":
-            data = reporting.csv_to_array("Pollution-"+monitoring_station+".csv")
+            data = utils.csv_to_array("Pollution-"+monitoring_station+".csv")
 
             print(reporting.daily_average(data,monitoring_station,pollutant))
         case "DM":
