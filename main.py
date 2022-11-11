@@ -47,6 +47,7 @@ def reporting_menu():
     -
     - choice variable stores user input
     - Monitoring station is choosen by the user and represented byb a number
+    - Match statement sets monitoring station to string value
     - Pollutant is chosen by the the user and +2 is added to represent its column number in csv file
     - Match statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
     """

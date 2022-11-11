@@ -151,7 +151,10 @@ def peak_hour_date(data:list, date:str, monitoring_station:str, pollutant:str)->
     \n
     Code:
     -
-    -
+    - Initializes empty values array
+    - Loops through the rows in data
+    - Check if the row is equal to the specified date
+    - Returns the result of values passed through the maxvalues function in utils.py
     """
     values =[]
     for row in data:
@@ -171,16 +174,15 @@ def count_missing_data(data:list, monitoring_station:str, pollutant:str)->int:
     - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
     \n
     Code:
-    - Initializes count with 0
+    - Initializes empty array values
     - Loops through each row in the data
-    - If statement checks if the value equals 'No data' and adds 1 to count if its true
-    - Returns count
+    - Appends just the pollutant value to values
+    - Returns countvalue in utils with values and 'No data' as parameters
     """
-    count = 0
+    values =[]
     for row in data:
-        if row[pollutant]== "No data":
-            count += 1
-    return count
+        values.append(row[pollutant])
+    return utils.countvalue(values, "No data")
 
 def fill_missing_data(data:list, new_value:any,  monitoring_station:str, pollutant:str):
     """

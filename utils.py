@@ -96,7 +96,7 @@ def meannvalue(values:list):
     return total/len(values)
 
 
-def countvalue(values:list,x:int)->int:
+def countvalue(values:list,x:any)->int:
     """
     Parameters:
     -
@@ -106,15 +106,12 @@ def countvalue(values:list,x:int)->int:
     -
     - Initializes count to 0
     - Loops through values
-    - If type isnt a float (by extension double of integer) raise exception
     - If i equals x add 1 to count
     - return count
     """
     count = 0
     for i in values:
-        if type(i) != float:
-            raise Exception("Exception: Non numerical value found")
-        elif i == x:
+        if i == x:
             count +=1
     return count
 
