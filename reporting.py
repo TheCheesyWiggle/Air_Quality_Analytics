@@ -1,5 +1,6 @@
 import numpy as np
-
+import csv
+import os
 # This is a template. 
 # You should modify the functions below to match
 # the signatures determined by the project specification
@@ -7,7 +8,6 @@ import numpy as np
 
 def daily_average(data:list, monitoring_station:str, pollutant:str) -> list:
     """
-    REWRITE
     Parameters: 
     -                                               
     - data = 2d array
@@ -22,8 +22,7 @@ def daily_average(data:list, monitoring_station:str, pollutant:str) -> list:
     - If statement checks if there is data and if we havent iterated through the day yet and performs operation accordingly
     - Returns array with daily averages
     """
-    
-    pol_num = pollutant_num(pollutant)
+    pol_num = pollutant
 
     daily_avg = []
     temp =[]
@@ -105,7 +104,7 @@ def hourly_average(data:list, monitoring_station:str, pollutant:str)->list:
         hours.append([count%24,row[pol_num]])
     
     for row in hours:
-        hourly_average.append(np.average(row))
+        hourly_average.append(np.average(row), row[1], monitoring_station,)
     print(hourly_average)
 
     return hourly_average
@@ -130,11 +129,29 @@ def fill_missing_data(data:list, new_value,  monitoring_station:str, pollutant:s
     
     ## Your code goes here
 
-def pollutant_num(pollutant:str)->int:
-     match(pollutant):
-        case "no":
-            return 2
-        case "PM10":
-            return 3
-        case "PM25":
-            return 4
+def csv_to_array(filename):
+    """
+    Parameters: 
+    -  file name
+    Code:
+    -
+    - cwd stores current working directory when os.cwd() returns it
+    - Initailizes data array to store the data from the csv file
+    - Using the with statement we open the file as a csvfile, we do this as the with statement autonmatically handles exceptions and closes the file to prevent bugs
+    - The csv reader reads the entire file
+    - The next() function ireturns the next item in the csvread variable
+    - Then we iterate through each row, for each row which intialize a empty rows array and append all the columns in the row to this individually.
+    - Then we add the rows array to the data array until we reach the end of the file
+    - Once we reach the end of the the file we return the data
+    """
+    cwd = os.getcwd()
+    data = []
+    with open(cwd+'\\data\\'+filename, 'r') as csvfile:
+        csvread = csv.reader(csvfile)
+        next(csvread)
+        for row in csvread:
+            rows = []
+            for col in row:
+                rows.append(col)
+            data.append(rows)
+    return data

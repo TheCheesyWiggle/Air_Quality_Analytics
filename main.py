@@ -1,16 +1,17 @@
-import sys
+
 import reporting
-import csv
-import os
 # This is a template. 
 # You should modify the functions below to match
 # the signatures determined by the project specification
 
 
 def main_menu():
+    print(reporting.csv_to_array("/data/Pollution-London Harlington.csv"))
     """
-    -  User input assigned to the choice variable
-    -  Match statement checks each case and executes accordingly and if the input doesnt match it outputs an error message and returns to main menu
+    Code:
+    -
+    - choice variable stores user input
+    - Match statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
     """
     choice = input("Main Menu:"
                 +"\n\tR - Access to PR module"
@@ -18,7 +19,7 @@ def main_menu():
                 +"\n\tM - Access to RM module"
                 +"\n\tA - Print the about text"
                 +"\n\tQ - Quit"
-                +"\nChoice:").upper()
+                +"\nChoice: ").upper()
     match(choice):
         case "R":
             reporting_menu()
@@ -38,10 +39,17 @@ def main_menu():
 def monitoring_menu():
     """Your documentation goes here"""
     choice = input("Monitoring Menu:"
-                +"\nChoice:").upper()
+                +"\nChoice: ").upper()
 
 def reporting_menu():
-    """Your documentation goes here"""
+    """
+    Code:
+    -
+    - choice variable stores user input
+    - Monitoring station is choosen by the user and represented byb a number
+    - Pollutant is chosen by the the user and +2 is added to represent its column number in csv file
+    - Match statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    """
     choice = input("Reporting Menu:"
         +"\n\tDA - Access to daily average"
         +"\n\tDM - Access to daily median"
@@ -50,12 +58,24 @@ def reporting_menu():
         +"\n\tPH - Access to peak hour of polution for a given date"
         +"\n\tDA - Access to daily average"
         +"\n\tM - Main Menu"
-        +"\nChoice:").upper()
+        +"\nChoice: ").upper()
+
+    monitoring_station = input("Choose Monitoring Station:"
+        +"\n\t0 - London Harlington"
+        +"\n\t1 - London Marlylebone"
+        +"\n\t2 - London N Kensington"
+        +"\nChoice: ")
+
+    pollutant = input("Choose Pollutant:"
+        +"\n\t0 - Nitric Oxide"
+        +"\n\t1 - PM10"
+        +"\n\t2 - PM25"
+        +"\nChoice: ") +2
+
+
     match(choice):
         case "DA":
-            monitoring_station = input("Input monitoring station: ")
-            pollutant = input("Input polluntant: ")
-            data = csv_to_array("Pollution-"+monitoring_station+".csv")
+            data = reporting.csv_to_array("Pollution-"+monitoring_station+".csv")
 
             print(reporting.daily_average(data,monitoring_station,pollutant))
         case "DM":
@@ -84,23 +104,8 @@ def about():
 
 def quit():
     """Your documentation goes here"""
-    sys.exit()
+    exit()
 
-def csv_to_array(filename):
-    """
-    Turns csv file into array
-    """
-    cwd = os.getcwd()
-    rows = []
-    with open(cwd+'\\data\\'+filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        next(csvreader)
-        for row in csvreader:
-            columns = []
-            for col in row:
-                columns.append(col)
-            rows.append(columns)
-    return rows
 
 if __name__ == '__main__':
     main_menu()
