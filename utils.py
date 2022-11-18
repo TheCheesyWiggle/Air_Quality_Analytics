@@ -26,7 +26,6 @@ def sumvalues(values:list)->int:
             sum += i
     return sum
 
-
 def maxvalue(values:list)-> int:
     """
     Parameters:
@@ -48,8 +47,6 @@ def maxvalue(values:list)-> int:
             if i>max:
                 max = i
     return max
-
-
 
 def minvalue(values:list):
     """
@@ -73,7 +70,6 @@ def minvalue(values:list):
                 min = i
     return min
 
-
 def meannvalue(values:list):
     """
     Parameters:
@@ -95,7 +91,6 @@ def meannvalue(values:list):
             total +=i
     return total/len(values)
 
-
 def countvalue(values:list,x:any)->int:
     """
     Parameters:
@@ -114,7 +109,6 @@ def countvalue(values:list,x:any)->int:
         if i == x:
             count +=1
     return count
-
 
 def csv_to_array(filename):
     """
