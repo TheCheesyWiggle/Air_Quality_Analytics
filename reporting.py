@@ -201,8 +201,4 @@ def fill_missing_data(data:list, new_value:any,  monitoring_station:str, polluta
     for row in data:
         if row[pollutant]== "No data":
             row[pollutant] = new_value
-<<<<<<< HEAD
             #write row to csv file
-=======
-            #write row to csv file
->>>>>>> 0b4337d02a4e22b26df3f9dc2be46a02c80b6a31
