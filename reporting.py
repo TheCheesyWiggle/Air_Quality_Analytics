@@ -6,35 +6,20 @@ import numpy as np
 # the signatures determined by the project specification
 
 
-def daily_average(data:list, monitoring_station:str, pollutant:str) -> list:
+def daily_average(data:dict, monitoring_station:str, pollutant:str) -> dict:
     """
     Parameters: 
     -                                               
-    - data = 2d array
+    - data = Dictionary
     - monitoring_station = String of the name of the monitoring station
     - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
     \n
     Code:
     - 
-    - Initalizes empty array to store daily averages and initalises counters for the loop/ if statement
-    - Loops through data row by row
-    - If statement checks if there is data and if we havent iterated through the day yet and performs operation accordingly
-    - Returns array with daily averages
-    """
-    daily_avg = []
-    temp =[]
+   """
+   daily_average = {}
+   return daily_average
 
-    for row in data:
-        if row[pollutant]== "No data":
-            print("No data")
-        elif count == 23:
-            count= 0
-            daily_avg.append([np.average(temp), row[0], monitoring_station])
-            temp =[]
-        else:
-            count += 1
-            temp.append(float(row[pollutant]))
-    return daily_avg
 
 def daily_median(data:list, monitoring_station:str, pollutant:str) -> list:
     """
@@ -201,8 +186,4 @@ def fill_missing_data(data:list, new_value:any,  monitoring_station:str, polluta
     for row in data:
         if row[pollutant]== "No data":
             row[pollutant] = new_value
-<<<<<<< HEAD
             #write row to csv file
-=======
-            #write row to csv file
->>>>>>> 0b4337d02a4e22b26df3f9dc2be46a02c80b6a31
