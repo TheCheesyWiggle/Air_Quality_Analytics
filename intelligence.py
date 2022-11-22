@@ -5,39 +5,64 @@ import numpy as np
 # the signatures determined by the project specification
 
 def find_red_pixels(*args,**kwargs):
-    """Your documentation goes here"""
-    map_filename = args[0]
+    """Parameters:
+    - 
+    - Filename
+    - Lower colour threshold
+    - Upper colour threshold
+    Code:
+    -
+    - io.imread() read the image file into a 3d array
+    - np.zeros sets up a array filled with zeros with a width of img_data.shape[0] and a height of img_data.shape[1]
+    - the nested for loop enumerates through the image dasta array
+    - the if statement changes the zeros 2 ones of the corresponding red pixels in the array
+    - io.saved the new array as a image
+    """
+    map = args[0]
     upper_threshold = kwargs["upper_threshold"]
     lower_threshold = kwargs["lower_threshold"]
 
-    img_data = io.imread(map_filename)
+    img_data = io.imread(map)
     
-    array = np.zeros((img_data.shape[0],img_data.shape[1]))
+    red_pixels = np.zeros((img_data.shape[0],img_data.shape[1]))
 
     for i, x in enumerate(img_data):
         for j, y in enumerate(x):
             if y[0]> upper_threshold and y[1]<lower_threshold and y[2] < lower_threshold:
-                array[i][j] = 1
-    io.imsave("data//map-red-pixels.jpg",array)
-    return array
+                red_pixels[i][j] = 1
+    io.imsave("data//map-red-pixels.jpg",red_pixels)
+    return red_pixels
     
 
 def find_cyan_pixels(*args,**kwargs):
-    """Your documentation goes here"""
-    map_filename = args[0]
+    """
+    Parameters:
+    - 
+    - Filename
+    - Lower colour threshold
+    - Upper colour threshold
+    Code:
+    -
+    - io.imread() read the image file into a 3d array
+    - np.zeros sets up a array filled with zeros with a width of img_data.shape[0] and a height of img_data.shape[1]
+    - the nested for loop enumerates through the image dasta array
+    - the if statement changes the zeros 2 ones of the corresponding cyan pixels in the array
+    - io.saved the new array as a image
+    """
+    map = args[0]
     upper_threshold = kwargs["upper_threshold"]
     lower_threshold = kwargs["lower_threshold"]
 
-    img_data = io.imread(map_filename)
+    img_data = io.imread(map)
     
-    array = np.zeros((img_data.shape[0],img_data.shape[1]))
+    cyan_pixels = np.zeros((img_data.shape[0],img_data.shape[1]))
 
     for i, x in enumerate(img_data):
         for j, y in enumerate(x):
             if y[0]< lower_threshold and y[1]>upper_threshold and y[2] > upper_threshold:
-                array[i][j] = 1
-    io.imsave("data//map-cyan-pixels.jpg",array)
-    return array
+                cyan_pixels[i][j] = 1
+    io.imsave("data//map-cyan-pixels.jpg", cyan_pixels)
+    return cyan_pixels
 
 
 def detect_connected_components(*args,**kwargs):
@@ -53,7 +78,8 @@ def detect_connected_components(*args,**kwargs):
                 while len(Q) == 0:
                     q = Q[0]
                     Q = np.delete(Q,0)
-                    #for loop 
+                    #for loop throught neighbors and add neighbors to the queue
+                    # when queue is empty you have a connected piece
 
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goesnp.delete)
