@@ -110,17 +110,14 @@ def countvalue(values:list,x:any)->int:
             count +=1
     return count
 
-def csv_to_dict(filename:str)->dict:
+def csvs_to_dict()->dict:
     """
     Parameters: 
     -  file name
     Code:
-    -
-    - cwd stores current working directory when os.cwd() returns it
     - pd.read_csv() reads the csv file and outputs a pandas dataframe
-    - data_frame.to_dict() converts the dataframe to a dictionary with a 2nd dictionary nested with in
+    - well read all the csv files and store their corresponding data frames in a dictionary
     - finally we return the nested dictionary
     """
-    cwd = os.getcwd()
-    data = pd.read_csv(cwd+'\\data\\'+filename).to_dict()
+    data = {"London Harlington":pd.read_csv('data\\Pollution-London Harlington.csv'),"London Marylebone Road":pd.read_csv('data\\Pollution-London Marylebone Road.csv'),"London N Kensington":pd.read_csv('data\\Pollution-London N Kensington.csv')}
     return data

@@ -15,14 +15,17 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
     - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
     \n
     Code:
+    - Grabs station data for intended station
     - initialises empty arrays for later use
     - initalizes count so we can track what hour we are one
     - loops for every value on the no nested dict
     - If statement checks if there is data and if we havent iterated through the day yet and performs operation accordingly
    """
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     daily_avg, temp = [], []
     count = 0
-    for i in data[pollutant]:
+    for i in poll_val:
         if i == "No data":
             print("No data")
         elif count == 23:
@@ -43,14 +46,17 @@ def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
     - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
     \n
     Code: 
-    - initialises empty arrays for later use
+    - Grabs all the data for the intended station
+    - Initalizes empty arrays ffor later use
     - initalizes count so we can track what hour we are one
-    - loops for every value on the no nested dict
+    - loops for every value in the poll_val variable
     - If statement checks if there is data and if we havent iterated through the day yet and performs operation accordingly
     """
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     daily_med, temp = [], []
     count = 0
-    for i in data[pollutant]:
+    for i in poll_val:
         if i == "No data":
             print("No data")
         elif count == 23:
@@ -73,6 +79,8 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     Code: 
     - 
     """
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     hourly_average=[]
     #get the keys of each hour in the time key
     # uses these keys to find the corresponing values ion the correct pollutant column
@@ -89,6 +97,8 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     Code: 
     -
     """
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     monthly_avg = []
     #get the keys of each month in the date key
     # uses these keys to find the corresponing values ion the correct pollutant column
@@ -106,6 +116,8 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
     -
     """
     # grab all values form one day and compare
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     values =[]
     return utils.maxvalue(values)
 
@@ -124,8 +136,10 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     - Returns countvalue in utils with values and 'No data' as parameters
     """
     ## loop through dict to find missing data
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
     values =[]
-    for i in data[pollutant]:
+    for i in poll_val:
         values.append(i)
     return utils.countvalue(values, "No data")
 
@@ -140,3 +154,7 @@ def fill_missing_data(data:dict, new_value:any,  monitoring_station:str, polluta
     Code:
     - 
     """
+    station = data[monitoring_station]
+    poll_val = station[pollutant]
+
+print(daily_median(utils.csvs_to_dict(),"London Harlington","no"))
