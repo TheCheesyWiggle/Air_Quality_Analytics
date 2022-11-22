@@ -7,6 +7,7 @@ import reporting
 
 
 def main_menu():
+    print(reporting.daily_average(utils.csv_to_dict("Pollution-London Harlington.csv"),"London Harlington","no"))
     """
     Code:
     -
