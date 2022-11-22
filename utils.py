@@ -1,4 +1,4 @@
-import csv
+import pandas as pd
 import os
 # This is a template. 
 # You should modify the functions below to match
@@ -110,29 +110,17 @@ def countvalue(values:list,x:any)->int:
             count +=1
     return count
 
-def csv_to_array(filename):
+def csv_to_dict(filename:str)->dict:
     """
     Parameters: 
     -  file name
     Code:
     -
     - cwd stores current working directory when os.cwd() returns it
-    - Initailizes data array to store the data from the csv file
-    - Using the with statement we open the file as a csvfile, we do this as the with statement autonmatically handles exceptions and closes the file to prevent bugs
-    - The csv reader reads the entire file
-    - The next() function skips the header row
-    - Then we iterate through each row, for each row which intialize a empty rows array and append all the columns in the row to this individually.
-    - Then we add the rows array to the data array until we reach the end of the file
-    - Once we reach the end of the the file we return the data
+    - pd.read_csv() reads the csv file and outputs a pandas dataframe
+    - data_frame.to_dict() converts the dataframe to a dictionary with a 2nd dictionary nested with in
+    - finally we return the nested dictionary
     """
     cwd = os.getcwd()
-    data = []
-    with open(cwd+'\\data\\'+filename, 'r') as csvfile:
-        csvread = csv.reader(csvfile)
-        next(csvread)
-        for row in csvread:
-            rows = []
-            for col in row:
-                rows.append(col)
-            data.append(rows)
+    data = pd.read_csv(cwd+'\\data\\'+filename).to_dict()
     return data

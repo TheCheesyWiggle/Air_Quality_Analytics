@@ -11,7 +11,7 @@ def main_menu():
     Code:
     -
     - choice variable stores user input
-    - Match statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    - if else statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
     """
     choice = input("Main Menu:"
                 +"\n\tR - Access to PR module"
@@ -20,20 +20,20 @@ def main_menu():
                 +"\n\tA - Print the about text"
                 +"\n\tQ - Quit"
                 +"\nChoice: ").upper()
-    match(choice):
-        case "R":
-            reporting_menu()
-        case "I":
-            intelligence_menu()
-        case "M":
-            monitoring_menu()
-        case "A":
-            about()
-        case "Q":
-            quit()
-        case _ :
-            print("Error please try again\nRemember to us uppercase letters")
-            main_menu()
+
+    if choice == "R":
+        reporting_menu()
+    elif choice == "I":
+        intelligence_menu()
+    elif choice == "M":
+        monitoring_menu()
+    elif choice == "A":
+        about()
+    elif choice == "Q":
+        quit()
+    else:
+        print("Error please try again\nRemember to use uppercase letters")
+        main_menu()
 
 
 def monitoring_menu():
@@ -46,10 +46,9 @@ def reporting_menu():
     Code:
     -
     - choice variable stores user input
-    - Monitoring station is choosen by the user and represented byb a number
-    - Match statement sets monitoring station to string value
-    - Pollutant is chosen by the the user and +2 is added to represent its column number in csv file
-    - Match statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    - if else statement sets monitoring station to string value
+    - Pollutant is chosen by the the user 
+    - if else statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
     """
     choice = input("Reporting Menu:"
         +"\n\tDA - Access to daily average"
@@ -67,39 +66,42 @@ def reporting_menu():
         +"\n\t2 - London N Kensington"
         +"\nChoice: ")
     
-    match(station):
-        case 0:
-            monitoring_station = "London Harlington"
-        case 1:
-            monitoring_station = "London Marlylebone"
-        case 2:
-            monitoring_station = "London N Kensington"
+    if station == "0":
+        monitoring_station = "London Harlington"
+    elif station == "1":
+        monitoring_station = "London Marlylebone"
+    elif station == "2":
+        monitoring_station = "London N Kensington"
+    else:
+        print("Error please try again\nRemember to use only numbers")
+        monitoring_menu()
 
     pollutant = input("Choose Pollutant:"
-        +"\n\t0 - Nitric Oxide"
-        +"\n\t1 - PM10"
-        +"\n\t2 - PM25"
-        +"\nChoice: ")+2
+        +"\n\tNO - Nitric Oxide"
+        +"\n\tPM10 - PM10"
+        +"\n\tPM25 - PM25"
+        +"\nChoice: ").lower()
+    
+    if pollutant != "no" and pollutant != "pm10" and pollutant != "pm25":
+        print("Error please try again\nRemember to use uppercase letters")
+        reporting_menu()
 
-
-    match(choice):
-        case "DA":
-            data = utils.csv_to_array("Pollution-"+monitoring_station+".csv")
-
-            print(reporting.daily_average(data,monitoring_station,pollutant))
-        case "DM":
-            reporting.daily_median()
-        case "HA":
-            reporting.hourly_average()
-        case "MA":
-            reporting.monthly_average()
-        case "PH":
-            reporting.peak_hour_date()
-        case "M":
-            main_menu()
-        case _ :
-            print("Error please try again\nRemember to us uppercase letters")
-            reporting_menu()
+    if choice == "DA":
+        data = utils.csv_to_dict("Pollution-"+monitoring_station+".csv")
+        print(reporting.daily_average(data,monitoring_station,pollutant))
+    elif choice == "DM":
+        reporting.daily_median()
+    elif choice == "HA":
+        reporting.hourly_average()
+    elif choice == "MA":
+        reporting.monthly_average()
+    elif choice == "PH":
+         reporting.peak_hour_date()
+    elif choice== "M":
+        main_menu()
+    else:
+        print("Error please try again\nRemember to use uppercase letters")
+        reporting_menu()
 
 def intelligence_menu():
     """Your documentation goes here"""
