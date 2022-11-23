@@ -26,13 +26,11 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
     daily_avg, temp = [], []
     count = 0
     for i in poll_val:
-        if i == "No data":
-            print("No data")
-        elif count == 23:
+        if count == 23:
             count= 0
             daily_avg.append(np.average(temp))
             temp =[]
-        else:
+        elif i != "No data":
             count += 1
             temp.append(float(i))
     return daily_avg
@@ -80,11 +78,18 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     - 
     """
     station = data[monitoring_station]
+    time = station["time"]
     poll_val = station[pollutant]
-    hourly_average=[]
-    #get the keys of each hour in the time key
-    # uses these keys to find the corresponing values ion the correct pollutant column
-    return hourly_average
+    hourly_avg={"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[], "13":[], "14":[], "15":[], "16":[], "17":[], "18":[], "19":[], "20":[], "21":[], "22":[], "23":[], "24":[]}
+    
+    for count, hour in enumerate(time):
+        if poll_val[count] != "No data":
+            hourly_avg[hour[:2]].append(float(poll_val[count]))
+        
+    for hr in hourly_avg:
+        hourly_avg[hr] = utils.meannvalue(hourly_avg[hr])
+
+    return hourly_avg
 
 def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
@@ -99,6 +104,7 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
     station = data[monitoring_station]
     poll_val = station[pollutant]
+    date = station["date"]
     monthly_avg = []
     #get the keys of each month in the date key
     # uses these keys to find the corresponing values ion the correct pollutant column
@@ -156,5 +162,3 @@ def fill_missing_data(data:dict, new_value:any,  monitoring_station:str, polluta
     """
     station = data[monitoring_station]
     poll_val = station[pollutant]
-
-print(daily_median(utils.csvs_to_dict(),"London Harlington","no"))
