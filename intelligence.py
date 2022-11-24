@@ -78,8 +78,19 @@ def detect_connected_components(*args,**kwargs):
                 while len(Q) == 0:
                     q = Q[0]
                     Q = np.delete(Q,0)
-                    #for loop throught neighbors and add neighbors to the queue
-                    # when queue is empty you have a connected piece
+                    for i in get_neighbors(x,y):
+                        if i == 1 and MARK[i[0]][i[1]] == 0:
+                            MARK[i[0]][i[1]] = 1
+                            Q = np.append(Q,IMG[i[0]][i[1]])
+    print(Q)
+
+def get_neighbors(x,y):
+    if x == 0:
+        neighbors = [[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
+        return neighbors
+    else:
+        neighbors = [[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
+        return neighbors
 
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goesnp.delete)
