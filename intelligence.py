@@ -68,8 +68,8 @@ def find_cyan_pixels(*args,**kwargs):
 def detect_connected_components(*args,**kwargs):
     """Your documentation goes here"""
     IMG = args[0]
-    MARK = np.zeros(IMG.shape())
-    Q = np.empty()
+    MARK = np.zeros((IMG.shape[0],IMG.shape[1]))
+    Q = np.empty((IMG.shape[0],IMG.shape[1]))
     for x, i in enumerate(IMG):
         for y, j in enumerate(i):
             if j == 1 and MARK[x][y]==0:
@@ -77,6 +77,7 @@ def detect_connected_components(*args,**kwargs):
                 Q = np.append(Q,j)
                 while len(Q) == 0:
                     q = Q[0]
+                    print(q)
                     Q = np.delete(Q,0)
                     for i in get_neighbors(x,y):
                         if i == 1 and MARK[i[0]][i[1]] == 0:
@@ -96,6 +97,8 @@ def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goesnp.delete)
     for each here"""
     # Your code goes here
+
+detect_connected_components(find_cyan_pixels("data\\map.png", upper_threshold=100, lower_threshold=50))
 
 """
 map_filename = "data\\map.png"
