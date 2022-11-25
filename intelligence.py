@@ -69,7 +69,7 @@ def detect_connected_components(*args,**kwargs):
     """Your documentation goes here"""
     IMG = args[0]
     MARK = np.zeros((IMG.shape[0],IMG.shape[1]))
-    Q = np.empty((IMG.shape[0],IMG.shape[1]))
+    Q = np.empty
     for x, i in enumerate(IMG):
         for y, j in enumerate(i):
             if j == 1 and MARK[x][y]==0:
