@@ -85,13 +85,13 @@ def meannvalue(values:list):
     """
     total = 0
     for i in values:
-        if type(i) != float:
+        if type(i) != float or type(i) != int:
             raise Exception("Exception: Non numerical value found")
         else:
             total +=i
     return total/len(values)
 
-def countvalue(values:list,x:any)->int:
+def countvalue(values:list,x)->int:
     """
     Parameters:
     -

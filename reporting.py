@@ -80,14 +80,15 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     station = data[monitoring_station]
     time = station["time"]
     poll_val = station[pollutant]
-    hourly_avg={"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[], "13":[], "14":[], "15":[], "16":[], "17":[], "18":[], "19":[], "20":[], "21":[], "22":[], "23":[], "24":[]}
-    
+    hours={"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[], "13":[], "14":[], "15":[], "16":[], "17":[], "18":[], "19":[], "20":[], "21":[], "22":[], "23":[], "24":[]}
+    hourly_avg = []*24
+
     for count, hour in enumerate(time):
         if poll_val[count] != "No data":
             hourly_avg[hour[:2]].append(float(poll_val[count]))
         
-    for hr in hourly_avg:
-        hourly_avg[hr] = utils.meannvalue(hourly_avg[hr])
+    for hr in hours:
+        hourly_avg.append(utils.meannvalue(hours[hr]))
 
     return hourly_avg
 
@@ -106,11 +107,28 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     poll_val = station[pollutant]
     date = station["date"]
     monthly_avg = []
+    prev_month = "01"
+    temp=[]
+
+    for index, month  in enumerate(date):
+        month = month.split("-")[1]
+        if poll_val[index] != "No data":
+            if month == prev_month:
+                temp.append(float(poll_val[index]))
+            else:
+                print(temp)
+                monthly_avg.append(utils.meannvalue(temp))
+                temp = []
+                temp.append(poll_val[index])
+                prev_month = month
+
+    print(monthly_avg)
+        
     #get the keys of each month in the date key
     # uses these keys to find the corresponing values ion the correct pollutant column
     return monthly_avg
 
-def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->str:
+def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->int:
     """
     Parameters: 
     -                                               
@@ -149,7 +167,7 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
         values.append(i)
     return utils.countvalue(values, "No data")
 
-def fill_missing_data(data:dict, new_value:any,  monitoring_station:str, pollutant:str):
+def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:str):
     """
     Parameters: 
     -                                               
@@ -162,3 +180,5 @@ def fill_missing_data(data:dict, new_value:any,  monitoring_station:str, polluta
     """
     station = data[monitoring_station]
     poll_val = station[pollutant]
+
+monthly_average(utils.csvs_to_dict(),"London Harlington","no")
