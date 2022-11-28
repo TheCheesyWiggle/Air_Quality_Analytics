@@ -83,13 +83,15 @@ def meannvalue(values:list):
     - Else adds i to total
     - When loop is finished return total divided by the length of values
     """
-    total = 0
-    for i in values:
-        if type(i) != float or type(i) != int:
-            raise Exception("Exception: Non numerical value found")
-        else:
-            total +=i
-    return total/len(values)
+
+    try:
+        total = 0
+        for i in values:
+            float(i)
+            total += 1
+        return total/len(values)
+    except :
+        raise Exception("Exception: Non numerical value found")
 
 def countvalue(values:list,x)->int:
     """
@@ -121,3 +123,5 @@ def csvs_to_dict()->dict:
     """
     data = {"London Harlington":pd.read_csv('data\\Pollution-London Harlington.csv'),"London Marylebone Road":pd.read_csv('data\\Pollution-London Marylebone Road.csv'),"London N Kensington":pd.read_csv('data\\Pollution-London N Kensington.csv')}
     return data
+
+

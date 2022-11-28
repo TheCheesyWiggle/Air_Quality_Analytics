@@ -7,7 +7,6 @@ import reporting
 
 
 def main_menu():
-    print(reporting.daily_average(utils.csv_to_dict("Pollution-London Harlington.csv"),"London Harlington","no"))
     """
     Code:
     -
@@ -88,16 +87,16 @@ def reporting_menu():
         reporting_menu()
 
     if choice == "DA":
-        data = utils.csv_to_dict("Pollution-"+monitoring_station+".csv")
-        print(reporting.daily_average(data,monitoring_station,pollutant))
+        data = utils.csvs_to_dict()
+        print(reporting.daily_average(data,monitoring_station,pollutant)) #type: ignore
     elif choice == "DM":
-        reporting.daily_median()
+        reporting.daily_median()  # type: ignore
     elif choice == "HA":
-        reporting.hourly_average()
+        reporting.hourly_average()  # type: ignore
     elif choice == "MA":
-        reporting.monthly_average()
+        reporting.monthly_average()  # type: ignore
     elif choice == "PH":
-         reporting.peak_hour_date()
+        reporting.peak_hour_date()  # type: ignore
     elif choice== "M":
         main_menu()
     else:

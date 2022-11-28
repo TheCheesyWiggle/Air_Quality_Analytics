@@ -40,6 +40,8 @@ def get_live_data_from_api(site_code='MY1',species_code='NO',start_date=None,end
 
 def rm_function_1(*args,**kwargs):
     """Your documentation goes here"""
+    # Your code goes here
+    get_live_data_from_api()
     
 
 def rm_function_2(*args,**kwargs):

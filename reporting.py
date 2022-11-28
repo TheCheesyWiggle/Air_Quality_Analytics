@@ -143,6 +143,9 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
     station = data[monitoring_station]
     poll_val = station[pollutant]
     values =[]
+    for index, day in enumerate(station["date"]):
+        if day == date:
+            values.append(poll_val[index])
     return utils.maxvalue(values)
 
 def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
@@ -165,6 +168,7 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     values =[]
     for i in poll_val:
         values.append(i)
+    print(utils.countvalue(values, "No data"))
     return utils.countvalue(values, "No data")
 
 def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:str):
@@ -180,5 +184,9 @@ def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:s
     """
     station = data[monitoring_station]
     poll_val = station[pollutant]
-
-monthly_average(utils.csvs_to_dict(),"London Harlington","no")
+    for index, value in enumerate(poll_val):
+        if value == "No data":
+            poll_val[index] = new_value
+    station[pollutant] = poll_val
+    data[monitoring_station] = station
+    return data
