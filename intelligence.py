@@ -69,7 +69,7 @@ def detect_connected_components(*args,**kwargs):
     """Your documentation goes here"""
     IMG = args[0]
     MARK = np.zeros((IMG.shape[0],IMG.shape[1]))
-    Q = np.empty(shape=(0),dtype=object)
+    Q = np.empty(0)
     # loops through the pixels in the image
     for x, i in enumerate(IMG):
         for y, j in enumerate(i):
@@ -84,27 +84,25 @@ def detect_connected_components(*args,**kwargs):
                 while len(Q) == 0:
                     # deletes the first element in the queue
                     q = Q[0]
+                    print(q)
                     Q = np.delete(Q,0)
                     # gets the neighbours of the pixel
                     for i in get_neighbors(q[0],q[y]):
-                        # if the neighbour is a 1 and not marked mark then mark it and add it to the queue
-                        if IMG[i[0]][i[1]]== 1 and MARK[i[0]][i[1]] == 0:
+                        # if the neighbour is a 1 and not marked mark the 
+                        if i == 1 and MARK[i[0]][i[1]] == 0:
                             MARK[i[0]][i[1]] = 1
-                            Q = np.append(Q,[i[0],i[1]])
+                            Q = np.append(Q,IMG[i[0]][i[1]])
     print(len(Q))
 
 def get_neighbors(x:int,y:int)->list:
     if x==0 and y==0:
-        neighbors = [[x,y+1],[x+1,y+1],[x+1,y]]
+        return[[x,y+1],[x+1,y+1],[x+1,y]]
     elif x == 0:
-        neighbors = [[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y]]
-        return neighbors
+        return [[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y]]
     elif y == 0:
-        neighbors = [[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1],[x,y-1]]
-        return neighbors
+        return[[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1],[x,y-1]]
     else:
-        neighbors = [[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
-        return neighbors
+        return[[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
 
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goesnp.delete)
