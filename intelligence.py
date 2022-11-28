@@ -81,7 +81,7 @@ def detect_connected_components(*args,**kwargs):
                 coord = [i,j]
                 Q = np.append(Q,coord)
                 # checks if there are still unvisted valid neighbours
-                while len(Q) == 0:
+                while len(Q) != 0:
                     # deletes the first element in the queue
                     q = Q[0]
                     print(q)
