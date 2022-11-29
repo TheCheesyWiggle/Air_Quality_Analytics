@@ -66,10 +66,22 @@ def find_cyan_pixels(*args,**kwargs):
 
 
 def detect_connected_components(*args,**kwargs):
-    """Your documentation goes here"""
+    """
+    
+    Parameters:
+    - IMG
+    
+    Code:
+    -"""
+    # gives use IMG variable
     IMG = args[0]
+    #Sets up MARK witht the same size as IMG but filled with zeros
     MARK = np.zeros((IMG.shape[0],IMG.shape[1]))
-    Q = np.empty(0)
+    print(IMG.shape[0],IMG.shape[1])
+    #sets up a Q for the neigbours
+    Q = np.empty((2,0), dtype=list)
+    #sets up a list for the connected components
+    connected_components = []
     # loops through the pixels in the image
     for x, i in enumerate(IMG):
         for y, j in enumerate(i):
@@ -78,29 +90,39 @@ def detect_connected_components(*args,**kwargs):
                 # mark the pixel
                 MARK[x][y] = 1
                 # add the pixel to the queue
-                coord = [i,j]
+                coord = [x , y]
                 Q = np.append(Q,coord)
+                count = 0
                 # checks if there are still unvisted valid neighbours
                 while len(Q) != 0:
-                    # deletes the first element in the queue
-                    q = Q[0]
-                    print(q)
+                    # creates a variable q and deletes the first element in the queue
+                    q = [Q.item(0) , Q.item(1)]
+                    count += 1
                     Q = np.delete(Q,0)
-                    # gets the neighbours of the pixel
-                    for i in get_neighbors(q[0],q[y]):
-                        # if the neighbour is a 1 and not marked mark the 
-                        if i == 1 and MARK[i[0]][i[1]] == 0:
+                    Q = np.delete(Q,0)
+                    # loops through and gets the neighbours of the pixel
+                    for i in get_neighbors(q[0],q[1]):
+                        # if the neighbour is a 1 and not marked mark the neighbour and add its x,y to the queueS
+                        if IMG[i[0]][i[1]] == 1 and MARK[i[0]][i[1]] == 0:
                             MARK[i[0]][i[1]] = 1
-                            Q = np.append(Q,IMG[i[0]][i[1]])
-    print(len(Q))
+                            Q = np.append(Q,[i[0],i[1]])
+                connected_components.append(count)
+    #for index, pix_count in enumerate(connected_components):
+    #    print(f"Connected component: {index}, number of pixels = {pix_count} pixels")
 
 def get_neighbors(x:int,y:int)->list:
     if x==0 and y==0:
-        return[[x,y+1],[x+1,y+1],[x+1,y]]
+        return[[x+1,y],[x+1,y-1],[x,y-1]]
     elif x == 0:
-        return [[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y]]
+        return [[x+1,y],[x+1,y-1],[x,y-1],[x-1,y-11],[x-1,y]]
     elif y == 0:
         return[[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1],[x,y-1]]
+    elif x == 1140 and y == 1053:
+        return [[x,y+1],[x-1,y+1],[x-1,y]]
+    elif x == 1140:
+        return [[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y]]
+    elif y == 1053:
+        return [[x,y+1],[x-1,y+1],[x-1,y],[x-1,y-1],[x,y-1]]
     else:
         return[[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
 
