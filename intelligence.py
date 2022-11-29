@@ -77,7 +77,6 @@ def detect_connected_components(*args,**kwargs):
     IMG = args[0]
     #Sets up MARK witht the same size as IMG but filled with zeros
     MARK = np.zeros((IMG.shape[0],IMG.shape[1]))
-    print(IMG.shape[0],IMG.shape[1])
     #sets up a Q for the neigbours
     Q = np.empty((2,0), dtype=list)
     #sets up a list for the connected components
@@ -98,6 +97,7 @@ def detect_connected_components(*args,**kwargs):
                     # creates a variable q and deletes the first element in the queue
                     q = [Q.item(0) , Q.item(1)]
                     count += 1
+                    #deletes x and y coord
                     Q = np.delete(Q,0)
                     Q = np.delete(Q,0)
                     # loops through and gets the neighbours of the pixel
