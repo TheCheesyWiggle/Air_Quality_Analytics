@@ -101,34 +101,32 @@ def detect_connected_components(*args,**kwargs):
                     Q = np.delete(Q,0)
                     Q = np.delete(Q,0)
                     # loops through and gets the neighbours of the pixel
-                    for i in get_neighbors(q[0],q[1]):
+                    for i in get_neighbors(q[0],q[1], IMG.shape):
                         # if the neighbour is a 1 and not marked mark the neighbour and add its x,y to the queueS
                         if IMG[i[0]][i[1]] == 1 and MARK[i[0]][i[1]] == 0:
-                            MARK[i[0]][i[1]] = 1
-                            Q = np.append(Q,[i[0],i[1]])
+                                MARK[i[0]][i[1]] = 1
+                                Q = np.append(Q,[i[0],i[1]])
                 connected_components.append(count)
-    #for index, pix_count in enumerate(connected_components):
-    #    print(f"Connected component: {index}, number of pixels = {pix_count} pixels")
+    with open("data\\cc-output-2a.txt","w") as out_file:
+        for index, pix_count in enumerate(connected_components):
+            out_file.write(f"Connected component: {index+1}, number of pixels = {pix_count} pixels\n")
+    return MARK
 
-def get_neighbors(x:int,y:int)->list:
-    if x==0 and y==0:
-        return[[x+1,y],[x+1,y-1],[x,y-1]]
-    elif x == 0:
-        return [[x+1,y],[x+1,y-1],[x,y-1],[x-1,y-11],[x-1,y]]
-    elif y == 0:
-        return[[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1],[x,y-1]]
-    elif x == 1140 and y == 1053:
-        return [[x,y+1],[x-1,y+1],[x-1,y]]
-    elif x == 1140:
-        return [[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y]]
-    elif y == 1053:
-        return [[x,y+1],[x-1,y+1],[x-1,y],[x-1,y-1],[x,y-1]]
-    else:
-        return[[x,y-1],[x-1,y-1],[x-1,y],[x-1,y+1],[x,y+1],[x+1,y+1],[x+1,y],[x+1,y-1]]
+def get_neighbors(x:int,y:int, size:tuple)->list:
+    array = []
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            temp_x = x + i
+            temp_y = y + j
+            if temp_x >= 0 and temp_x < size[0] and temp_y >=0 and temp_y < size[1]: # if the bounds are ok
+                if temp_x != x or temp_y != y:
+                    array.append((x+i, y+j))
+
+    return array
+                
 
 def detect_connected_components_sorted(*args,**kwargs):
-    """Your documentation goesnp.delete)
-    for each here"""
+    """Your documentation goes here"""
     # Your code goes here
 
 detect_connected_components(find_red_pixels("data\\map.png", upper_threshold=100, lower_threshold=50))
