@@ -32,7 +32,6 @@ def find_red_pixels(*args,**kwargs):
                 red_pixels[i][j] = 1
     io.imsave("data//map-red-pixels.jpg",red_pixels)
     return red_pixels
-    
 
 def find_cyan_pixels(*args,**kwargs):
     """
@@ -68,9 +67,14 @@ def detect_connected_components(*args,**kwargs):
     """
     
     Parameters:
-    - IMG
+    -
+    - IMG 
+    - upper threshold
+    - lower threshold
     
     Code:
+    -
+    -
 """
     # gives use IMG variable
     IMG = args[0]
@@ -129,7 +133,6 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
                     array.append((x+i, y+j))
     return array
                 
-
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goes here"""
     MARK = args[0]
@@ -148,11 +151,40 @@ def detect_connected_components_sorted(*args,**kwargs):
     #sorts the values
     comp_no, pix_no = bubble_sort(dictionary)
     dictionary = dict(zip(comp_no,pix_no))
+    #opens a file 
+    with open("data\\cc-output-2b.txt","w") as out_file:
+        #loops through the connected components
+        for key,value in dictionary.items():
+            #writes the connected component to the file
+            out_file.write(f"Connected component: {key}, number of pixels = {value} pixels\n")
+        #writes the total number of connected components to the file
+        out_file.write(f"Total connected components: {len(dictionary)}")
+    
+    biggest = list(dictionary.items())[0]
+    second_biggest = list(dictionary.items())[1]
+    print(f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
+    print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels")
 
-
+    MARK
+    """
+    Get top 2 connected components
+    Remove everything else from mark
+    save mark
+    """
+    io.imsave("data//cc-top-2.jpg",MARK)
 
 def bubble_sort(dictionary:dict)->tuple:
-    """Your documentation goes here"""
+    """
+    Parameters:
+    -
+    - dictionary: a dictionary with the connected component number as the key and the number of pixels as the value
+
+    Code:
+    - 
+    - Splits the dictionary into two lists one for component numbers one for number of pixels
+    - Sets swapped to false
+    -
+    """
     comp_no = list(dictionary.keys())
     pix_no =  list(dictionary.values())
     swapped = False
@@ -166,7 +198,4 @@ def bubble_sort(dictionary:dict)->tuple:
             return comp_no, pix_no
     return comp_no, pix_no
 
-#num, pix = bubble_sort([2,8,9,1,5,6,3,4,10,7],[98,34,3,12,23,67,109,84,21,176])
-#for i, x in enumerate(num):
-    #print(f"Connected component: {x}, number of pixels = {pix[i]} pixels")
 detect_connected_components_sorted(detect_connected_components(find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
