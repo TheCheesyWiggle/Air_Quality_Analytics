@@ -45,7 +45,6 @@ def rm_function_3(*args,**kwargs):
     #print(api_data['HourlyAirQualityIndex'].keys())
     #print(api_data['HourlyAirQualityIndex']['LocalAuthority'][0])
     for i in api_data['HourlyAirQualityIndex']['LocalAuthority']:
-        print(i['@LocalAuthorityName'])
         if 'Site' in i.keys():
             if type(i['Site']) == list:
                 for j in i['Site']:
