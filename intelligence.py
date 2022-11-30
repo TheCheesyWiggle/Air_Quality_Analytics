@@ -105,14 +105,20 @@ def detect_connected_components(*args,**kwargs):
                         if IMG[i[0]][i[1]] == 1 and MARK[i[0]][i[1]] == 0:
                                 MARK[i[0]][i[1]] = 1
                                 Q = np.append(Q,[i[0],i[1]])
+                # adds the number of pixels in the connected component to the list
                 connected_components.append(count)
+    #opens a file 
     with open("data\\cc-output-2a.txt","w") as out_file:
+        #loops through the connected components
         for index, pix_count in enumerate(connected_components):
+            #writes the connected component to the file
             out_file.write(f"Connected component: {index+1}, number of pixels = {pix_count} pixels\n")
+        #writes the total number of connected components to the file
         out_file.write(f"Total connected components: {len(connected_components)}")
     return MARK
 
 def get_neighbors(x:int,y:int, size:tuple)->list:
+    """Your documenation goes here"""
     array = []
     for i in range(-1, 2):
         for j in range(-1, 2):
@@ -127,40 +133,40 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goes here"""
     MARK = args[0]
-    dict = {}
+    dictionary = {}
     #Opens cc-output-2a.txt file
     with open("data\\cc-output-2a.txt","r") as in_file:
         #loops through the file
         for line in in_file:
-            print(line [:27])
             if line [:27] == "Total connected components:":
                 break
             #splits the line into a list
             line = line.split(' ')
-            dict[line[2][:-1]] = line[7]
-            print(line)
-    #splits the dictionary into keys and values
-    num = list(dict.keys())
-    pix =  list(dict.values())
-    print(type(num))
-    print(type(pix))
-    #sorts the valuwes
-    num, pix = bubble_sort(num,pix)
-    print(dict)
+            #adds the component number and number of pixels to the dictionary while converting the number of pixels to an int
+            #Converted to an in because otherwise the bubble sort would not work
+            dictionary[int(line[2][:-1])] = int(line[7])
+    #sorts the values
+    comp_no, pix_no = bubble_sort(dictionary)
+    dictionary = dict(zip(comp_no,pix_no))
 
 
 
-def bubble_sort(num:list, pix:list)->tuple:
-    for i in range(len(num)):
-        for j in range(len(num)-1):
-            if num[j] > num[j+1]:
-                temp_v = num[j]
-                temp_k = pix[j]
-                num[j] = num[j+1]
-                pix[j] = pix[j+1]
-                num[j+1] = temp_v
-                pix[j+1] = temp_k
-    return num, pix
+def bubble_sort(dictionary:dict)->tuple:
+    """Your documentation goes here"""
+    comp_no = list(dictionary.keys())
+    pix_no =  list(dictionary.values())
+    swapped = False
+    for i in range(len(pix_no)-1):
+        for j in range(0, len(pix_no)-i-1):
+            if pix_no[j] < pix_no[j + 1]:
+                swapped = True
+                comp_no[j], comp_no[j + 1] = comp_no[j + 1], comp_no[j]
+                pix_no[j], pix_no[j + 1] = pix_no[j + 1], pix_no[j]
+        if not swapped:
+            return comp_no, pix_no
+    return comp_no, pix_no
 
-
-detect_connected_components_sorted(detect_connected_components(find_cyan_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
+#num, pix = bubble_sort([2,8,9,1,5,6,3,4,10,7],[98,34,3,12,23,67,109,84,21,176])
+#for i, x in enumerate(num):
+    #print(f"Connected component: {x}, number of pixels = {pix[i]} pixels")
+detect_connected_components_sorted(detect_connected_components(find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
