@@ -61,9 +61,8 @@ def find_cyan_pixels(*args,**kwargs):
         for j, y in enumerate(x):
             if y[0]< lower_threshold and y[1]>upper_threshold and y[2] > upper_threshold:
                 cyan_pixels[i][j] = 1
-    io.imsave("data//map-cyan-pixels.jpg", cyan_pixels)
+    io.imsave("data//map-cyan-pixels.jpg",cyan_pixels)
     return cyan_pixels
-
 
 def detect_connected_components(*args,**kwargs):
     """
@@ -72,7 +71,7 @@ def detect_connected_components(*args,**kwargs):
     - IMG
     
     Code:
-    -"""
+"""
     # gives use IMG variable
     IMG = args[0]
     #Sets up MARK witht the same size as IMG but filled with zeros
@@ -110,6 +109,7 @@ def detect_connected_components(*args,**kwargs):
     with open("data\\cc-output-2a.txt","w") as out_file:
         for index, pix_count in enumerate(connected_components):
             out_file.write(f"Connected component: {index+1}, number of pixels = {pix_count} pixels\n")
+        out_file.write(f"Total connected components: {len(connected_components)}")
     return MARK
 
 def get_neighbors(x:int,y:int, size:tuple)->list:
@@ -121,14 +121,46 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
             if temp_x >= 0 and temp_x < size[0] and temp_y >=0 and temp_y < size[1]: # if the bounds are ok
                 if temp_x != x or temp_y != y:
                     array.append((x+i, y+j))
-
     return array
                 
 
 def detect_connected_components_sorted(*args,**kwargs):
     """Your documentation goes here"""
-    # Your code goes here
+    MARK = args[0]
+    dict = {}
+    #Opens cc-output-2a.txt file
+    with open("data\\cc-output-2a.txt","r") as in_file:
+        #loops through the file
+        for line in in_file:
+            print(line [:27])
+            if line [:27] == "Total connected components:":
+                break
+            #splits the line into a list
+            line = line.split(' ')
+            dict[line[2][:-1]] = line[7]
+            print(line)
+    #splits the dictionary into keys and values
+    num = list(dict.keys())
+    pix =  list(dict.values())
+    print(type(num))
+    print(type(pix))
+    #sorts the valuwes
+    num, pix = bubble_sort(num,pix)
+    print(dict)
 
-detect_connected_components(find_red_pixels("data\\map.png", upper_threshold=100, lower_threshold=50))
-#detect_connected_components(find_cyan_pixels("data\\map.png", upper_threshold=100, lower_threshold=50))
 
+
+def bubble_sort(num:list, pix:list)->tuple:
+    for i in range(len(num)):
+        for j in range(len(num)-1):
+            if num[j] > num[j+1]:
+                temp_v = num[j]
+                temp_k = pix[j]
+                num[j] = num[j+1]
+                pix[j] = pix[j+1]
+                num[j+1] = temp_v
+                pix[j+1] = temp_k
+    return num, pix
+
+
+detect_connected_components_sorted(detect_connected_components(find_cyan_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
