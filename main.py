@@ -88,11 +88,11 @@ def reporting_menu():
 
     if choice == "DA":
         data = utils.csvs_to_dict()
-        print(reporting.daily_average(data,monitoring_station,pollutant)) #type: ignore
+        print(reporting.daily_average(data, monitoring_station, pollutant))# type: ignore
     elif choice == "DM":
-        reporting.daily_median()  # type: ignore
+        reporting.daily_median()# type: ignore
     elif choice == "HA":
-        reporting.hourly_average()  # type: ignore
+        reporting.hourly_average()# type: ignore
     elif choice == "MA":
         reporting.monthly_average()  # type: ignore
     elif choice == "PH":
