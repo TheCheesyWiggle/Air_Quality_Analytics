@@ -15,8 +15,10 @@ import requests
 import datetime
 import json
 import numpy as np
+import utils
+import matplotlib.pyplot as plt
 
-def get_live_data_from_api(site_code='MY1',species_code='NO',start_date=None,end_date=None):
+def get_live_data_from_api(site_code='MY1',start_date=None,end_date=None):
     """
     Return data from the LondonAir API using its AirQuality API. 
     
@@ -24,23 +26,21 @@ def get_live_data_from_api(site_code='MY1',species_code='NO',start_date=None,end
     It requires the `requests` library which needs to be installed. 
     In order to use this function you first have to install the `requests` library.
     This code is provided as-is. 
+    date format yyyy-mm-dd
     """
-    print(datetime.date.today())
     start_date = datetime.date.today() if start_date is None else start_date
     end_date = start_date + datetime.timedelta(days=1) if end_date is None else end_date
-    print(end_date)
+    print(f"Retrieving data from {start_date} to {end_date} for site {site_code}")
     #url = "http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
     endpoint = "http://api.erg.ic.ac.uk/AirQuality/Data/Site/SiteCode={site_code}/StartDate={start_date}/EndDate={end_date}/Json"
 
     url = endpoint.format(
         site_code = site_code,
-        species_code = species_code,
         start_date = start_date,
         end_date = end_date
     )
     
     res = requests.get(url)
-    #print(json.dumps(res.json(), indent=4))
     return res.json()
 
 
@@ -50,26 +50,47 @@ def rm_function_1(*args,**kwargs):
     start = args[1]
     end = args[2]
     species_code = args[3]
-    variables = []
-    values = []
-    api_data = get_live_data_from_api(site_code,species_code,start,end)
+    variables = {'values':[],'dates':[]}
+
+    api_data = get_live_data_from_api(site_code,start,end)
     for i in api_data['AirQualityData']['Data']:
-        value = i['@Value']
-        date = i['@MeasurementDateGMT']
-        print(f'Value: {value}')
-        variables.append([value,date])
-        values.append(value)
-    print(variables)
+        if i['@SpeciesCode'] == species_code:
+            variables['values'].append(i['@Value'])
+            variables['dates'].append(i['@MeasurementDateGMT'])
+
+    plt.title(f'Site: {site_code} Pollutant: {species_code}')
+    plt.xticks(ticks=range(len(variables['dates'])) , rotation=90)
+    plt.xlabel('Time')
+    plt.ylabel('Concentration')
+    plt.plot(variables['dates'], variables['values'])
+    plt.show()
+
+    
+
+
     
     
 
 def rm_function_2(*args,**kwargs):
     """Your documentation goes here"""
-    # Your code goes here
+    x = np.linspace(0,5,50)
+    y = np.linspace(0,5,50)
+
+    X,Y = np.meshgrid(x,y)
+    Z = f(X,Y)
+    fig, ax = plt.subplots()
+    plt.contourf(X,Y,Z)
+    plt.colorbar()
+    plt.show()
+
+def f(x,y):
+    return np.sin(x) ** 8 +np.cos(20+y*x) *np.cos(y)
+
 
 
 def rm_function_3(*args,**kwargs):
     """Your documentation goes here"""
+    # gets hourly data from all sites
     api_data = get_live_data_from_api()
     for i in api_data['HourlyAirQualityIndex']['LocalAuthority']:
         if 'Site' in i.keys():
@@ -84,4 +105,6 @@ def rm_function_4(*args,**kwargs):
     # Your code goes here
 
 #print(get_live_data_from_api('MY1', 'NO'))
-rm_function_1()
+rm_function_1("BG1","2022-01-01","2022-01-02","S02")
+#
+#rm_function_2()
