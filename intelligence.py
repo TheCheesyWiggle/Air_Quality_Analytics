@@ -165,7 +165,7 @@ def detect_connected_components_sorted(*args,**kwargs):
     print(f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
     print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels")
 
-    MARK
+    return MARK
     """
     Get top 2 connected components
     Remove everything else from mark
