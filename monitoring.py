@@ -18,7 +18,7 @@ import numpy as np
 import utils
 import matplotlib.pyplot as plt
 
-def get_live_data_from_api_rm1(site_code='MY1',start_date=None,end_date=None):
+def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     """
     Return data from the LondonAir API using its AirQuality API. 
     
@@ -41,8 +41,12 @@ def get_live_data_from_api_rm1(site_code='MY1',start_date=None,end_date=None):
     res = requests.get(url)
     return res.json()
 
+def get_live_data_from_api():
+    url ="http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
+    res = requests.get(url)
+    return res.json()
 
-def rm_function_1(*args,**kwargs):
+def pollutant_plot(*args,**kwargs):
     """Your documentation goes here"""
     site_code= args[0]
     start = args[1]
@@ -50,7 +54,7 @@ def rm_function_1(*args,**kwargs):
     species_code = args[3]
     variables = {'values':[],'dates':[]}
 
-    api_data = get_live_data_from_api_rm1(site_code,start,end)
+    api_data = get_live_data_pollutant_plot(site_code,start,end)
     for i in api_data['AirQualityData']['Data']:
         if i['@SpeciesCode'] == species_code:
             variables['values'].append(i['@Value'])
@@ -75,21 +79,38 @@ def rm_function_2(*args,**kwargs):
 
 
 
-def rm_function_3(*args,**kwargs):
+def hourly_data(*args,**kwargs)->dict:
     """Your documentation goes here"""
-    # gets hourly data from all sites
+    #initializes dictionary to store data from the api
+    data = {}
+    #gets raw data from the api
     api_data = get_live_data_from_api()
+    #loops through the local authorities
     for i in api_data['HourlyAirQualityIndex']['LocalAuthority']:
+        #Checks if their are monitoring sites in the local authority
         if 'Site' in i.keys():
+            #if the site is a list loop through the list
             if type(i['Site']) == list:
                 for j in i['Site']:
-                    print(j['@SiteName'], j['@SiteCode'])
+                    #creates 
+                    temp = {}
+                    if type(j['Species']) == list:
+                        for x in j['Species']:
+                            temp[x['@SpeciesCode']] = x['@AirQualityBand']
+                    else:
+                        temp[j['Species']['@SpeciesCode']] = j['Species']['@AirQualityBand']
+                    data[j['@SiteName']+" "+j['@SiteCode']] = temp
             elif type(i['Site']) == dict:
-                print(i['Site']['@SiteName'],i['Site']['@SiteCode'] )
+                temp = {}
+                for k in i['Site']['Species']:
+                    temp[k['@SpeciesCode']] = k['@AirQualityBand']
+                data[i['Site']['@SiteName']+" "+i['Site']['@SiteCode']] = temp
+    return data
     
 def rm_function_4(*args,**kwargs):
     """Your documentation goes here"""
     # Your code goes here
 
 
-#rm_function_2()
+#pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
+print(hourly_data())
