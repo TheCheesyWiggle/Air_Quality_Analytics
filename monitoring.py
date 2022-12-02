@@ -18,7 +18,7 @@ import numpy as np
 import utils
 import matplotlib.pyplot as plt
 
-def get_live_data_from_api(site_code='MY1',start_date=None,end_date=None):
+def get_live_data_from_api_rm1(site_code='MY1',start_date=None,end_date=None):
     """
     Return data from the LondonAir API using its AirQuality API. 
     
@@ -30,8 +30,6 @@ def get_live_data_from_api(site_code='MY1',start_date=None,end_date=None):
     """
     start_date = datetime.date.today() if start_date is None else start_date
     end_date = start_date + datetime.timedelta(days=1) if end_date is None else end_date
-    print(f"Retrieving data from {start_date} to {end_date} for site {site_code}")
-    #url = "http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
     endpoint = "http://api.erg.ic.ac.uk/AirQuality/Data/Site/SiteCode={site_code}/StartDate={start_date}/EndDate={end_date}/Json"
 
     url = endpoint.format(
@@ -52,7 +50,7 @@ def rm_function_1(*args,**kwargs):
     species_code = args[3]
     variables = {'values':[],'dates':[]}
 
-    api_data = get_live_data_from_api(site_code,start,end)
+    api_data = get_live_data_from_api_rm1(site_code,start,end)
     for i in api_data['AirQualityData']['Data']:
         if i['@SpeciesCode'] == species_code:
             variables['values'].append(i['@Value'])
@@ -65,6 +63,7 @@ def rm_function_1(*args,**kwargs):
     plt.plot(variables['dates'], variables['values'])
     plt.show()
 
+
     
 
 
@@ -73,18 +72,6 @@ def rm_function_1(*args,**kwargs):
 
 def rm_function_2(*args,**kwargs):
     """Your documentation goes here"""
-    x = np.linspace(0,5,50)
-    y = np.linspace(0,5,50)
-
-    X,Y = np.meshgrid(x,y)
-    Z = f(X,Y)
-    fig, ax = plt.subplots()
-    plt.contourf(X,Y,Z)
-    plt.colorbar()
-    plt.show()
-
-def f(x,y):
-    return np.sin(x) ** 8 +np.cos(20+y*x) *np.cos(y)
 
 
 
@@ -104,7 +91,5 @@ def rm_function_4(*args,**kwargs):
     """Your documentation goes here"""
     # Your code goes here
 
-#print(get_live_data_from_api('MY1', 'NO'))
-rm_function_1("BG1","2022-01-01","2022-01-02","S02")
-#
+
 #rm_function_2()
