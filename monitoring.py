@@ -48,18 +48,23 @@ def get_live_data_from_api():
 
 def pollutant_plot(*args,**kwargs):
     """Your documentation goes here"""
+
+    #initializes variables
     site_code= args[0]
     start = args[1]
     end = args[2]
     species_code = args[3]
     variables = {'values':[],'dates':[]}
-
+    #gets data from the api
     api_data = get_live_data_pollutant_plot(site_code,start,end)
+    #loops through the data
     for i in api_data['AirQualityData']['Data']:
+        #grabs info for the correct species
         if i['@SpeciesCode'] == species_code:
+            #adds the values and dates to the variables
             variables['values'].append(i['@Value'])
             variables['dates'].append(i['@MeasurementDateGMT'])
-
+    #plots the data
     plt.title(f'Site: {site_code} Pollutant: {species_code}')
     plt.xticks(ticks=range(len(variables['dates'])) , rotation=90)
     plt.xlabel('Time')
@@ -92,18 +97,28 @@ def hourly_data(*args,**kwargs)->dict:
             #if the site is a list loop through the list
             if type(i['Site']) == list:
                 for j in i['Site']:
-                    #creates 
+                    #creates temporary dictionary to store data from the site
                     temp = {}
+                    #if the site is a list loop through the list
                     if type(j['Species']) == list:
+                        #loops through the items in species
                         for x in j['Species']:
+                            #adds the species to the temporary dictionary
                             temp[x['@SpeciesCode']] = x['@AirQualityBand']
                     else:
+                        #adds the species to the temporary dictionary
                         temp[j['Species']['@SpeciesCode']] = j['Species']['@AirQualityBand']
+                    #adds the temporary dictionary to the data dictionary
                     data[j['@SiteName']+" "+j['@SiteCode']] = temp
+            #if the site is a dictionary
             elif type(i['Site']) == dict:
+                #creates temporary dictionary to store data from the site
                 temp = {}
+                #loops through species
                 for k in i['Site']['Species']:
+                    #adds the species to the temporary dictionary
                     temp[k['@SpeciesCode']] = k['@AirQualityBand']
+                #adds the temporary dictionary to the data dictionary
                 data[i['Site']['@SiteName']+" "+i['Site']['@SiteCode']] = temp
     return data
     
