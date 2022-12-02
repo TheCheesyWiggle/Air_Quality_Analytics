@@ -46,14 +46,14 @@ def get_live_data_from_api():
     res = requests.get(url)
     return res.json()
 
-def pollutant_plot(*args,**kwargs):
+def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     """Your documentation goes here"""
 
     #initializes variables
-    site_code= args[0]
-    start = args[1]
-    end = args[2]
-    species_code = args[3]
+    site_code = "MY1" if site_code is None else site_code
+    start = datetime.date.today() if start is None else start
+    end = start + datetime.timedelta(days=1) if end is None else end
+    species_code = "NO2" if species_code is None else species_code
     variables = {'values':[],'dates':[]}
     #gets data from the api
     api_data = get_live_data_pollutant_plot(site_code,start,end)
@@ -72,19 +72,7 @@ def pollutant_plot(*args,**kwargs):
     plt.plot(variables['dates'], variables['values'])
     plt.show()
 
-
-    
-
-
-    
-    
-
-def rm_function_2(*args,**kwargs):
-    """Your documentation goes here"""
-
-
-
-def hourly_data(*args,**kwargs)->dict:
+def hourly_data()->dict:
     """Your documentation goes here"""
     #initializes dictionary to store data from the api
     data = {}
@@ -121,11 +109,14 @@ def hourly_data(*args,**kwargs)->dict:
                 #adds the temporary dictionary to the data dictionary
                 data[i['Site']['@SiteName']+" "+i['Site']['@SiteCode']] = temp
     return data
-    
-def rm_function_4(*args,**kwargs):
-    """Your documentation goes here"""
-    # Your code goes here
+
+def hourly_formatted(data:dict, site_code:str, species_code:str):
+    for i in data:
+        if i[-3:] == site_code:
+            if "No data" == data[i][species_code]:
+                print("Unfortunatly there is no data for this site and pollutant")
+            print("The air quality band for this site is:",data[i][species_code])
 
 
 #pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
-print(hourly_data())
+hourly_formatted(hourly_data(),"MY1","NO2")
