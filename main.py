@@ -1,6 +1,5 @@
 
-import utils
-import reporting
+import reporting, monitoring, intelligence, utils
 # This is a template. 
 # You should modify the functions below to match
 # the signatures determined by the project specification
@@ -35,11 +34,30 @@ def main_menu():
         print("Error please try again\nRemember to use uppercase letters")
         main_menu()
 
-
 def monitoring_menu():
-    """Your documentation goes here"""
+    """
+    Code:
+    -
+    - choice variable stores user input
+    - if else statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    - during th eif else statement the user is asked for the site code, start date, end date and species code 
+    - this input is then passed into the functions
+    """
     choice = input("Monitoring Menu:"
-                +"\nChoice: ").upper()
+        +"\n\t1 - Graph"
+        +"\n\t2 - Hourly data"
+        +"\nChoice: ").upper()
+    
+    if choice == "1":
+        site_code = input("Please enter the site code: ").upper()
+        start = input("Please enter the start date (yyyy-mm-dd): ")
+        end = input("Please enter the end date (yyyy-mm-dd): ")
+        species_code = input("Please enter the species code: ").upper()
+        monitoring.pollutant_plot(site_code,start,end,species_code)
+    elif choice == "2":
+        site_code = input("Please enter the site code: ").upper()
+        species_code = input("Please enter the species code: ").upper()
+        monitoring.hourly_formatted(monitoring.hourly_data(),site_code,species_code)
 
 def reporting_menu():
     """
@@ -73,6 +91,7 @@ def reporting_menu():
     elif station == "2":
         monitoring_station = "London N Kensington"
     else:
+        monitoring_station = "ERROR"
         print("Error please try again\nRemember to use only numbers")
         monitoring_menu()
 
@@ -86,17 +105,19 @@ def reporting_menu():
         print("Error please try again\nRemember to use uppercase letters")
         reporting_menu()
 
+    data = utils.csvs_to_dict()
+
     if choice == "DA":
-        data = utils.csvs_to_dict()
-        print(reporting.daily_average(data, monitoring_station, pollutant))# type: ignore
+        print(reporting.daily_average(data, monitoring_station, pollutant))
     elif choice == "DM":
-        reporting.daily_median()# type: ignore
+        reporting.daily_median(data, monitoring_station, pollutant)
     elif choice == "HA":
-        reporting.hourly_average()# type: ignore
+        reporting.hourly_average(data, monitoring_station, pollutant)
     elif choice == "MA":
-        reporting.monthly_average()  # type: ignore
+        reporting.monthly_average(data, monitoring_station, pollutant) 
     elif choice == "PH":
-        reporting.peak_hour_date()  # type: ignore
+        date = input("Please enter the date (yyyy-mm-dd): ")
+        reporting.peak_hour_date(data, date, monitoring_station, pollutant) 
     elif choice== "M":
         main_menu()
     else:
@@ -104,17 +125,64 @@ def reporting_menu():
         reporting_menu()
 
 def intelligence_menu():
-    """Your documentation goes here"""
+    """
+    Code:
+    - Choice variable stores user input which service the want
+    - if else statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    - second choice variable stores user input which colour pixels they want attributed for the service
+    - if else statement handles user input of the menu and redirects to corresponding choice, if there is a error it calls the function again
+    
+    """
+    
     choice = input("Intelligence Menu:"
-                +"\nChoice:").upper()
+        +"\n\tFP - Find Pixels"
+        +"\n\tFC - Find Connected Components"
+        +"\n\tSC - Sort Connected Components"
+        +"\nChoice: ").upper()
 
+    if choice == "FP":
+        choice2 = input("R - Red Pixels"
+            +"\n\tC - Cyan Pixels")
+        if choice2 == "R":
+            intelligence.find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)
+        elif choice2 == "C":
+            intelligence.find_cyan_pixels("data//map.png",upper_threshold=100,lower_threshold=50)
+        else:
+            intelligence_menu()
+    elif choice == "FC":
+        choice2 = input("R - Red Pixels"
+            +"\n\tC - Cyan Pixels")
+        if choice2 == "R":
+            intelligence.detect_connected_components(intelligence.find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50))
+        elif choice2 == "C":
+            intelligence.detect_connected_components(intelligence.find_cyan_pixels("data//map.png",upper_threshold=100,lower_threshold=50))
+        else:
+            intelligence_menu()
+    elif choice == "SC":
+        choice2 = input("R - Red Pixels"
+            +"\n\tC - Cyan Pixels")
+        if choice2 == "R":
+            intelligence.detect_connected_components_sorted(intelligence.detect_connected_components(intelligence.find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
+        elif choice2 == "C":
+            intelligence.detect_connected_components_sorted(intelligence.detect_connected_components(intelligence.find_cyan_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
+        else:
+            intelligence_menu()
+    else:
+        intelligence_menu()
+        
 def about():
-    """Your documentation goes here"""
-    print("Module: ECM1400 \nCandidate Number: ???")
+    """
+    Code:
+    - Prints the module and candidate number
+    """
+    print("Module: ECM1400 \nCandidate Number: 720019013")
     return main_menu()
 
 def quit():
-    """Your documentation goes here"""
+    """
+    Code:
+    - Exits the program
+    """
     exit()
 
 
