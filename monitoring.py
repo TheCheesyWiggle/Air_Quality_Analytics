@@ -114,9 +114,10 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
     for i in data:
         if i[-3:] == site_code:
             if "No data" == data[i][species_code]:
-                print("Unfortunatly there is no data for this site and pollutant")
-            print("The air quality band for this site is:",data[i][species_code])
+                print("Unfortunately there is no data for this site and pollutant")
+            else:
+                print("The air quality band for this site is:",data[i][species_code])
 
 
 #pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
-hourly_formatted(hourly_data(),"MY1","NO2")
+hourly_formatted(hourly_data(),"BG1","NO2")
