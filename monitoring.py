@@ -73,7 +73,11 @@ def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     plt.show()
 
 def hourly_data()->dict:
-    """Your documentation goes here"""
+    """
+    Code:
+    -
+    - Grabs all hourly data from the api and returns it as a dictionary
+    """
     #initializes dictionary to store data from the api
     data = {}
     #gets raw data from the api
@@ -119,5 +123,5 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 print("The air quality band for this site is:",data[i][species_code])
 
 
-#pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
-hourly_formatted(hourly_data(),"BG1","NO2")
+pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
+#hourly_formatted(hourly_data(),"BG1","NO2")
