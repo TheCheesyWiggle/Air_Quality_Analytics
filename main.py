@@ -58,6 +58,9 @@ def monitoring_menu():
         site_code = input("Please enter the site code: ").upper()
         species_code = input("Please enter the species code: ").upper()
         monitoring.hourly_formatted(monitoring.hourly_data(),site_code,species_code)
+    else:
+        print("Error please try again\nRemember to use uppercase letters")
+        monitoring_menu()
 
 def reporting_menu():
     """
@@ -184,7 +187,6 @@ def quit():
     - Exits the program
     """
     exit()
-
 
 if __name__ == '__main__':
     main_menu()
