@@ -123,5 +123,3 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 print("The air quality band for this site is:",data[i][species_code])
 
 
-pollutant_plot('BG1','2019-01-01','2019-01-02','SO2')
-#hourly_formatted(hourly_data(),"BG1","NO2")
