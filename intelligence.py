@@ -134,7 +134,14 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
     return array
                 
 def detect_connected_components_sorted(*args,**kwargs):
-    """Your documentation goes here"""
+    """
+    Parameters:
+    -
+    -
+    Code:
+    - 
+    - 
+    """
     MARK = args[0]
     dictionary = {}
     #Opens cc-output-2a.txt file
@@ -159,15 +166,16 @@ def detect_connected_components_sorted(*args,**kwargs):
             out_file.write(f"Connected component: {key}, number of pixels = {value} pixels\n")
         #writes the total number of connected components to the file
         out_file.write(f"Total connected components: {len(dictionary)}")
-    
+    #biggest component
     biggest = list(dictionary.items())[0]
+    # second biggest component
     second_biggest = list(dictionary.items())[1]
+    #prints both components
     print(f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
     print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels")
 
     return MARK
     """
-    Get top 2 connected components
     Remove everything else from mark
     save mark
     """

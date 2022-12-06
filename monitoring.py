@@ -42,6 +42,13 @@ def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     return res.json()
 
 def get_live_data_from_api():
+    """
+    Code:
+    - 
+    - Url for the api
+    - requests the data from the api
+    - returns json data
+    """
     url ="http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
     res = requests.get(url)
     return res.json()
@@ -125,11 +132,16 @@ def hourly_data()->dict:
     return data
 
 def hourly_formatted(data:dict, site_code:str, species_code:str):
+    #loops through the data
     for i in data:
+        #Grabs the site code and comapres it to the site code given
         if i[-3:] == site_code:
+            #check if the data is valid
             if "No data" == data[i][species_code]:
+                #error message
                 print("Unfortunately there is no data for this site and pollutant")
             else:
+                #outputs data
                 print("The air quality band for this site is:",data[i][species_code])
 
 
