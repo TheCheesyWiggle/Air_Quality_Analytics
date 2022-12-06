@@ -47,7 +47,17 @@ def get_live_data_from_api():
     return res.json()
 
 def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
-    """Your documentation goes here"""
+    """
+    Code:
+    -
+    - Initializes variables
+    - Gets data from the api
+    - Loops through the data
+    - Grabs info for the correct species
+    - gets the values and dates of the variables
+    - plots the data
+    - shows the plotted data
+    """
 
     #initializes variables
     site_code = "MY1" if site_code is None else site_code
