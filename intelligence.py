@@ -206,4 +206,5 @@ def bubble_sort(dictionary:dict)->tuple:
             return comp_no, pix_no
     return comp_no, pix_no
 
-detect_connected_components_sorted(detect_connected_components(find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
+if __name__ == '__main__':
+    detect_connected_components_sorted(detect_connected_components(find_red_pixels("data//map.png",upper_threshold=100,lower_threshold=50)))
