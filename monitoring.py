@@ -18,6 +18,7 @@ import numpy as np
 import utils
 import matplotlib.pyplot as plt
 
+
 def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     """
     Return data from the LondonAir API using its AirQuality API. 
@@ -65,7 +66,8 @@ def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     - plots the data
     - shows the plotted data
     """
-
+    #sets background to dark
+    plt.style.use('dark_background')
     #initializes variables
     site_code = "MY1" if site_code is None else site_code
     start = datetime.date.today() if start is None else start
@@ -132,6 +134,7 @@ def hourly_data()->dict:
     return data
 
 def hourly_formatted(data:dict, site_code:str, species_code:str):
+
     #loops through the data
     for i in data:
         #Grabs the site code and comapres it to the site code given
@@ -144,4 +147,39 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 #outputs data
                 print("The air quality band for this site is:",data[i][species_code])
 
+def api_formatted_for_radar_chart(site_code_1:str, site_code_2:str,):
+    #initializes variables
+    site_code_1 = "MY1" if site_code_1 is None else site_code_1
+    site_code_2 = "BG1" if site_code_2 is None else site_code_2
+    # grabs api data for both stations
+    api_data_1 = get_live_data_pollutant_plot(site_code_1)
+    api_data_2 = get_live_data_pollutant_plot(site_code_2)
+    #NOTE:loops through variables and gets site name, species code and values
+    
+    
+def plot_radar_chart(pollutants, station_1, station_2):
+    #NOTE: Take stations as a dictionary then you can store site names too
+    #NOTE: list of pollutants is the same for both stations
+    # starts at 0 and goes to 2pi ==360 degrees
+    angles = np.linspace(0,2*np.pi,len(pollutants), endpoint=False)
+    angles=np.concatenate((angles,[angles[0]]))
+    # makes data circular for consistancy when plotting
+    pollutants.append(pollutants[0])
+    station_1.append(station_1[0])
+    station_2.append(station_2[0])
+    # plotting station 1
+    fig=plt.figure(figsize=(6,6))
+    ax=fig.add_subplot(polar=True)
+    ax.plot(angles, station_1)
+    ax.plot(angles,station_1, 'o-', color='cyan', label='Station name')
+    ax.fill(angles, station_1, alpha=0.25, color='cyan')
+    #plotting station 2
+    ax.plot(angles, station_2)
+    ax.plot(angles,station_2, 'o-', color='magenta', label='Station name')
+    ax.fill(angles, station_2, alpha=0.25, color='magenta')
+    ax.set_thetagrids(angles * 180/np.pi, pollutants)# type: ignore
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend()
+    plt.show()
 
