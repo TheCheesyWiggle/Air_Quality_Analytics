@@ -154,7 +154,7 @@ def intelligence_menu():
 
     if choice == "FP":
         choice2 = input(decor.reset+ fg.cyan+"R - Red Pixels"
-            +"\n\tC - Cyan Pixels"+ fg.pink + decor.bold
+            +"\nC - Cyan Pixels"+ fg.pink + decor.bold
             +"\nChoice: "+decor.reset+fg.lightgreen).upper()
         print(decor.reset)
         if choice2 == "R":
@@ -165,7 +165,7 @@ def intelligence_menu():
             intelligence_menu()
     elif choice == "FC":
         choice2 = input(decor.reset+ fg.cyan+"R - Red Pixels"
-            +"\n\tC - Cyan Pixels"+ fg.pink + decor.bold
+            +"\nC - Cyan Pixels"+ fg.pink + decor.bold
             +"\nChoice: "+decor.reset+fg.lightgreen).upper()
         print(decor.reset)
         if choice2 == "R":

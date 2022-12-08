@@ -1,5 +1,6 @@
 from skimage import io, util
 import numpy as np
+from colours import fg,bg,decor
 # This is a template. 
 # You should modify the functions below to match
 # the signatures determined by the project specification
@@ -171,8 +172,8 @@ def detect_connected_components_sorted(*args,**kwargs):
     # second biggest component
     second_biggest = list(dictionary.items())[1]
     #prints both components
-    print(f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
-    print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels")
+    print(fg.cyan+f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
+    print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels"+decor.reset)
 
     return MARK
     """
