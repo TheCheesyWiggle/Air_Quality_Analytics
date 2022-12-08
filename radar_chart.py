@@ -28,7 +28,7 @@ ax.fill(angles, station_1, alpha=0.25, color='cyan')
 ax.plot(angles, station_2)
 ax.plot(angles,station_2, 'o-', color='magenta', label='MY1')
 ax.fill(angles, station_2, alpha=0.25, color='magenta')
-ax.set_thetagrids(angles * 180/np.pi, pollutants)
+ax.set_thetagrids(angles * 180/np.pi, pollutants)#type: ignore
 plt.grid(True)
 plt.tight_layout()
 plt.legend()

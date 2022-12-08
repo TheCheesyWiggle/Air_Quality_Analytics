@@ -1,8 +1,8 @@
 import pytest
-import reporting
+from reporting import daily_average
 import utils
 
-def test_daily_avg():
+def test_dailyavg():
     data = utils.csvs_to_dict()
     # Test the daily_avg function
-    assert len(reporting.daily_average(data,"London Harlington", "no")) == 365
+    assert len(daily_average(data,"London Harlington", "no")) == 365

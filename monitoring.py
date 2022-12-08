@@ -66,7 +66,7 @@ def get_live_data_from_api_radar(site_code_1 = None, site_code_2 = None):
     site_code_2 = "MY1" if site_code_2 is None else site_code_2
     url_1 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_1+"/Json"
     res_1 = requests.get(url_1)
-    url_2 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_1+"/Json"
+    url_2 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_2+"/Json"
     res_2 = requests.get(url_2)
     return res_1.json(), res_2.json()
 
@@ -164,17 +164,42 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 print("The air quality band for this site is:",data[i][species_code])
 
 def radar_chart_data(site_code_1:str, site_code_2:str,):
+    #Creates a dictionarys to store the data
+    stations={}
     # grabs api data for both stations
     data_1, data_2= get_live_data_from_api_radar(site_code_1, site_code_2)
 
-    for i in data_1:
-        print(i)
-    #NOTE:loops through variables and gets site name, species code and values
-    
-    
-def plot_radar_chart(station_1, station_2):
-    #NOTE: Take stations as a nested dictionary then you can store site names too
-    #NOTE: list of pollutants is the same for both stations
+    ## creates dictionary with both stations
+    stations[data_1['DailyAirQualityIndex']['LocalAuthority']['Site']['@SiteName']] = get_values(data_1)
+    stations[data_2['DailyAirQualityIndex']['LocalAuthority']['Site']['@SiteName']] = get_values(data_2)
+
+    # returns the dictionary with the stations
+    return stations
+
+def get_values(data:dict)->dict:
+    """Code:
+    -
+    - Returns a dictionary with the species and their air quality index"""
+    #creates a temporary dictionary to store the data
+    temp = {}
+    #loops through the species
+    for i in data['DailyAirQualityIndex']['LocalAuthority']['Site']['Species']:
+        #adds the species to the temporary dictionary
+        temp[i['@SpeciesCode']] = i['@AirQualityBand']
+    #returns the temporary dictionary
+    return temp
+
+def plot_radar_chart(stations:dict):
+    # style of the plot
+    plt.style.use('dark_background')
+    # grabs keys from the dictionary
+    keys = stations.keys()
+    station_name_1, station_name_2 = list(keys)[0], list(keys)[1]
+    # grabs values from the dictionary
+    station_1, station_2 = list(stations[station_name_1].values()), list(stations[station_name_2].values())
+    # fills in missing data with no data values
+    station_1, station_2 = fill_missing_data(station_1), fill_missing_data(station_2)
+    print(station_1, station_2)
     # starts at 0 and goes to 2pi ==360 degrees
     pollutants = ['CO', 'NO2', 'O3', 'PM10', 'PM25', 'SO2']
     angles = np.linspace(0,2*np.pi,len(pollutants), endpoint=False)
@@ -183,15 +208,16 @@ def plot_radar_chart(station_1, station_2):
     pollutants.append(pollutants[0])
     station_1.append(station_1[0])
     station_2.append(station_2[0])
-    # plotting station 1
-    fig=plt.figure(figsize=(6,6))
+    # creates the plot
+    fig=plt.figure(figsize=(7,7))
     ax=fig.add_subplot(polar=True)
+    #plotting station 1
     ax.plot(angles, station_1)
-    ax.plot(angles,station_1, 'o-', color='cyan', label='Station name')
+    ax.plot(angles,station_1, 'o-', color='cyan', label= station_name_1)
     ax.fill(angles, station_1, alpha=0.25, color='cyan')
     #plotting station 2
     ax.plot(angles, station_2)
-    ax.plot(angles,station_2, 'o-', color='magenta', label='Station name')
+    ax.plot(angles,station_2, 'o-', color='magenta', label= station_name_2)
     ax.fill(angles, station_2, alpha=0.25, color='magenta')
     ax.set_thetagrids(angles * 180/np.pi, pollutants)# type: ignore
     plt.grid(True)
@@ -199,5 +225,11 @@ def plot_radar_chart(station_1, station_2):
     plt.legend()
     plt.show()
 
-if __name__ == ' __main__':
-    radar_chart_data("MY1","BG2")
+def fill_missing_data(station_list:list)->list:
+    for i in range(1, 7-len(station_list)):
+        station_list.append("No data")
+    return station_list
+
+
+if __name__ == '__main__':
+    plot_radar_chart(radar_chart_data("MY1","BG2"))
