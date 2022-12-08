@@ -42,7 +42,7 @@ def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     res = requests.get(url)
     return res.json()
 
-def get_live_data_from_api():
+def get_live_data_from_api_hourly():
     """
     Code:
     - 
@@ -53,6 +53,22 @@ def get_live_data_from_api():
     url ="http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
     res = requests.get(url)
     return res.json()
+
+def get_live_data_from_api_radar(site_code_1 = None, site_code_2 = None):
+    """
+    Code:
+    - 
+    - Url for the api
+    - requests the data from the api
+    - returns json data
+    """
+    site_code_1 = "BG1" if site_code_1 is None else site_code_1
+    site_code_2 = "MY1" if site_code_2 is None else site_code_2
+    url_1 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_1+"/Json"
+    res_1 = requests.get(url_1)
+    url_2 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_1+"/Json"
+    res_2 = requests.get(url_2)
+    return res_1.json(), res_2.json()
 
 def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     """
@@ -100,7 +116,7 @@ def hourly_data()->dict:
     #initializes dictionary to store data from the api
     data = {}
     #gets raw data from the api
-    api_data = get_live_data_from_api()
+    api_data = get_live_data_from_api_hourly()
     #loops through the local authorities
     for i in api_data['HourlyAirQualityIndex']['LocalAuthority']:
         #Checks if their are monitoring sites in the local authority
@@ -147,20 +163,20 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 #outputs data
                 print("The air quality band for this site is:",data[i][species_code])
 
-def api_formatted_for_radar_chart(site_code_1:str, site_code_2:str,):
-    #initializes variables
-    site_code_1 = "MY1" if site_code_1 is None else site_code_1
-    site_code_2 = "BG1" if site_code_2 is None else site_code_2
+def radar_chart_data(site_code_1:str, site_code_2:str,):
     # grabs api data for both stations
-    api_data_1 = get_live_data_pollutant_plot(site_code_1)
-    api_data_2 = get_live_data_pollutant_plot(site_code_2)
+    data_1, data_2= get_live_data_from_api_radar(site_code_1, site_code_2)
+
+    for i in data_1:
+        print(i)
     #NOTE:loops through variables and gets site name, species code and values
     
     
-def plot_radar_chart(pollutants, station_1, station_2):
-    #NOTE: Take stations as a dictionary then you can store site names too
+def plot_radar_chart(station_1, station_2):
+    #NOTE: Take stations as a nested dictionary then you can store site names too
     #NOTE: list of pollutants is the same for both stations
     # starts at 0 and goes to 2pi ==360 degrees
+    pollutants = ['CO', 'NO2', 'O3', 'PM10', 'PM25', 'SO2']
     angles = np.linspace(0,2*np.pi,len(pollutants), endpoint=False)
     angles=np.concatenate((angles,[angles[0]]))
     # makes data circular for consistancy when plotting
@@ -183,3 +199,5 @@ def plot_radar_chart(pollutants, station_1, station_2):
     plt.legend()
     plt.show()
 
+if __name__ == ' __main__':
+    radar_chart_data("MY1","BG2")

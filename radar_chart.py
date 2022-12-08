@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 plt.style.use('dark_background')
 
 #data
-pollutants=['SO2','NO2','O3','PM10','PM2.5']
-station_1=[60,40,68,94,27]
-station_2=[81,30,75,37,46]
+pollutants = ['CO', 'NO2', 'O3', 'PM10', 'PM25', 'SO2']
+station_1=[60,40,68,94,27,60]
+station_2=[81,30,75,37,46,50]
 
 
 # getting angles
@@ -19,7 +19,7 @@ pollutants.append(pollutants[0])
 station_1.append(station_1[0])
 station_2.append(station_2[0])
 # plotting station 1
-fig=plt.figure(figsize=(6,6))
+fig=plt.figure(figsize=(7,7))
 ax=fig.add_subplot(polar=True)
 ax.plot(angles, station_1)
 ax.plot(angles,station_1, 'o-', color='cyan', label='BG1')
