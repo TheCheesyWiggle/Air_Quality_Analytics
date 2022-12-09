@@ -5,6 +5,7 @@ from colours import fg,bg,decor
 # You should modify the functions below to match
 # the signatures determined by the project specification
 
+#NOTE:docs and inline comments finished
 def find_red_pixels(*args,**kwargs):
     """Parameters:
     - 
@@ -19,21 +20,26 @@ def find_red_pixels(*args,**kwargs):
     - the if statement changes the zeros 2 ones of the corresponding red pixels in the array
     - io.saved the new array as a image
     """
+    #gather the arguments
     map = args[0]
     upper_threshold = kwargs["upper_threshold"]
     lower_threshold = kwargs["lower_threshold"]
-
+    #read the image
     img_data = io.imread(map)
-    
+    #create an array of zeros with the same size as the image
     red_pixels = np.zeros((img_data.shape[0],img_data.shape[1]))
-
+    #loop through the image data
     for i, x in enumerate(img_data):
         for j, y in enumerate(x):
+            #if the pixel is red change the corresponding pixel in the red_pixels array to 1
             if y[0]> upper_threshold and y[1]<lower_threshold and y[2] < lower_threshold:
                 red_pixels[i][j] = 1
+    #save the red_pixels array as a image
     io.imsave("data//map-red-pixels.jpg",red_pixels)
+    #return the red_pixels array
     return red_pixels
 
+#NOTE:docs and inline comments finished
 def find_cyan_pixels(*args,**kwargs):
     """
     Parameters:
@@ -49,21 +55,26 @@ def find_cyan_pixels(*args,**kwargs):
     - the if statement changes the zeros 2 ones of the corresponding cyan pixels in the array
     - io.saved the new array as a image
     """
+    #gather the arguments
     map = args[0]
     upper_threshold = kwargs["upper_threshold"]
     lower_threshold = kwargs["lower_threshold"]
-
+    #read the image
     img_data = io.imread(map)
-    
+    #create an array of zeros with the same size as the image
     cyan_pixels = np.zeros((img_data.shape[0],img_data.shape[1]))
-
+    #loop through the image data
     for i, x in enumerate(img_data):
         for j, y in enumerate(x):
+            #if the pixel is cyan change the corresponding pixel in the cyan_pixels array to 1
             if y[0]< lower_threshold and y[1]>upper_threshold and y[2] > upper_threshold:
                 cyan_pixels[i][j] = 1
+    #save the cyan_pixels array as a image
     io.imsave("data//map-cyan-pixels.jpg",cyan_pixels)
+    #return the cyan_pixels array
     return cyan_pixels
 
+#NOTE:docs and inline comments finished
 def detect_connected_components(*args,**kwargs):
     """
     
@@ -75,7 +86,7 @@ def detect_connected_components(*args,**kwargs):
     
     Code:
     -
-    -
+    - Gets the connected components of a sepciifc colour in an image
 """
     # gives use IMG variable
     IMG = args[0]
@@ -122,16 +133,39 @@ def detect_connected_components(*args,**kwargs):
         out_file.write(f"Total connected components: {len(connected_components)}")
     return MARK
 
+#NOTE:docs and inline comments finished
 def get_neighbors(x:int,y:int, size:tuple)->list:
-    """Your documenation goes here"""
+    """
+    Parameters:
+    -
+    - x = x coord
+    - y = y coord
+    - size = tuple with size of the image
+    Code:
+    -
+    - creates an empty array
+    - loops through the neighbours
+    - creates temp variables for the x and y coords
+    - if bounds are ok
+    - if the x and y coords are not the same as the original x and y coords
+    - add the x and y coords to the array
+    - return array
+    """
+    #creates an empty array
     array = []
+    #loops through the neighbours
     for i in range(-1, 2):
         for j in range(-1, 2):
+            #creates temp variables for the x and y coords
             temp_x = x + i
             temp_y = y + j
-            if temp_x >= 0 and temp_x < size[0] and temp_y >=0 and temp_y < size[1]: # if the bounds are ok
+            # if bounds are ok
+            if temp_x >= 0 and temp_x < size[0] and temp_y >=0 and temp_y < size[1]: 
+                # if the x and y coords are not the same as the original x and y coords
                 if temp_x != x or temp_y != y:
+                    # add the x and y coords to the array
                     array.append((x+i, y+j))
+    #return array
     return array
                 
 def detect_connected_components_sorted(*args,**kwargs):
@@ -182,6 +216,7 @@ def detect_connected_components_sorted(*args,**kwargs):
     """
     io.imsave("data//cc-top-2.jpg",MARK)
 
+#NOTE:docs and inline comments finished
 def bubble_sort(dictionary:dict)->tuple:
     """
     Parameters:
@@ -190,19 +225,26 @@ def bubble_sort(dictionary:dict)->tuple:
 
     Code:
     - 
-    - Splits the dictionary into two lists one for component numbers one for number of pixels
-    - Sets swapped to false
-    -
+    -  Bublesort sorts the components by the number of pixels
+    - Sorts 2 arrays in tandem
+
     """
+    # Splits the dictionary into two lists one for component numbers one for number of pixels
     comp_no = list(dictionary.keys())
     pix_no =  list(dictionary.values())
+    # Sets swapped to false
     swapped = False
+    # loops through the list
     for i in range(len(pix_no)-1):
         for j in range(0, len(pix_no)-i-1):
+            # if the number of pixels is less than the next number of pixels swap the two numbers
             if pix_no[j] < pix_no[j + 1]:
+                #sets swapped to true
                 swapped = True
+                #swaps the pixels and component numbers
                 comp_no[j], comp_no[j + 1] = comp_no[j + 1], comp_no[j]
                 pix_no[j], pix_no[j + 1] = pix_no[j + 1], pix_no[j]
+        # if swapped is true return the component numbers and number of pixels
         if not swapped:
             return comp_no, pix_no
     return comp_no, pix_no

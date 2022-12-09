@@ -88,7 +88,7 @@ def monitoring_menu():
         monitoring_menu()
 
 #NOTE:docs and inline comments finished
-#NOTE: Use regex to check if the user input is a valid date
+#NOTE: Use regex to check if the date input is a valid format
 def reporting_menu():
     """
     Code:
