@@ -27,7 +27,6 @@ def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     It requires the `requests` library which needs to be installed. 
     In order to use this function you first have to install the `requests` library.
     This code is provided as-is. 
-    date format yyyy-mm-dd
     """
     start_date = datetime.date.today() if start_date is None else start_date
     end_date = start_date + datetime.timedelta(days=1) if end_date is None else end_date
@@ -62,12 +61,16 @@ def get_live_data_from_api_radar(site_code_1 = None, site_code_2 = None):
     - requests the data from the api
     - returns json data
     """
+    # Default site codes are BG1 and MY1
     site_code_1 = "BG1" if site_code_1 is None else site_code_1
     site_code_2 = "MY1" if site_code_2 is None else site_code_2
+    #gets data from the api for the first station
     url_1 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_1+"/Json"
     res_1 = requests.get(url_1)
+    #gets data from the api for the second station
     url_2 ="https://api.erg.ic.ac.uk/AirQuality/Daily/MonitoringIndex/Latest/SiteCode="+site_code_2+"/Json"
     res_2 = requests.get(url_2)
+    #returns the json data
     return res_1.json(), res_2.json()
 
 def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
@@ -150,7 +153,16 @@ def hourly_data()->dict:
     return data
 
 def hourly_formatted(data:dict, site_code:str, species_code:str):
-
+    """
+    Parameters:
+    -
+    - data: The data from the api
+    - site_code: The site code for the station
+    - species_code: The species code for the pollutant
+    Code:
+    -
+    - Formats the hourly data from the api
+    """
     #loops through the data
     for i in data:
         #Grabs the site code and comapres it to the site code given
@@ -164,6 +176,15 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 print("The air quality band for this site is:",data[i][species_code])
 
 def radar_chart_data(site_code_1:str, site_code_2:str,):
+    """
+    Parameters:
+    -
+    - site_code_1: The site code for the first station
+    - site_code_2: The site code for the second station
+    Code:
+    -
+    - Gets data fromm api and stores it in a dictionary
+    """
     #Creates a dictionarys to store the data
     stations={}
     # grabs api data for both stations
@@ -177,7 +198,10 @@ def radar_chart_data(site_code_1:str, site_code_2:str,):
     return stations
 
 def get_values(data:dict)->dict:
-    """Code:
+    """
+    Parameters:
+    -  data: The data from the api
+    Code:
     -
     - Returns a dictionary with the species and their air quality index
     """
@@ -244,6 +268,14 @@ def plot_radar_chart(stations:dict):
     plt.show()
 
 def fill_missing_data(station_list:list)->list:
+    """
+    Parameters:
+    - 
+    - station_list: The list of the station data
+    Code:
+    -
+    - Fills in missing data with no data values
+    """
     for i in range(1, 7-len(station_list)):
         station_list.append("No data")
     return station_list
