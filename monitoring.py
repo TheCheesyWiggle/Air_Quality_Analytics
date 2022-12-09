@@ -179,7 +179,8 @@ def radar_chart_data(site_code_1:str, site_code_2:str,):
 def get_values(data:dict)->dict:
     """Code:
     -
-    - Returns a dictionary with the species and their air quality index"""
+    - Returns a dictionary with the species and their air quality index
+    """
     #creates a temporary dictionary to store the data
     temp = {}
     #loops through the species
@@ -190,6 +191,12 @@ def get_values(data:dict)->dict:
     return temp
 
 def plot_radar_chart(stations:dict):
+    """
+    Code:
+    - 
+    - Plots the 2 stations on a radar chart
+    """
+
     # style of the plot
     plt.style.use('dark_background')
     # grabs keys from the dictionary
@@ -219,10 +226,21 @@ def plot_radar_chart(stations:dict):
     ax.plot(angles, station_2)
     ax.plot(angles,station_2, 'o-', color='magenta', label= station_name_2)
     ax.fill(angles, station_2, alpha=0.25, color='magenta')
+    #making scale
+    ax.plot(angles, ["No data","Low","Mid","High","Low","Mid","High"], color='white', alpha=0)
+    # sets the labels/plot features
     ax.set_thetagrids(angles * 180/np.pi, pollutants)# type: ignore
+    # sets y axis labels
+    ax.set_yticklabels(["No data","Low","Mid","High"])
+    # sets title
+    plt.title(station_name_1+" VS "+station_name_2)
+    # creates grid lines
     plt.grid(True)
+    # provides automatic padding to subplot
     plt.tight_layout()
+    # automatically handles labels
     plt.legend()
+    # shows plot
     plt.show()
 
 def fill_missing_data(station_list:list)->list:
