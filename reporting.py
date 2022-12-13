@@ -116,13 +116,11 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
             if month == prev_month:
                 temp.append(float(poll_val[index]))
             else:
-                print(temp)
                 monthly_avg.append(utils.meannvalue(temp))
                 temp = []
                 temp.append(poll_val[index])
                 prev_month = month
 
-    print(monthly_avg)
         
     #get the keys of each month in the date key
     # uses these keys to find the corresponing values ion the correct pollutant column
