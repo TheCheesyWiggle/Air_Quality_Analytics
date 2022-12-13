@@ -1,0 +1,12 @@
+{
+  "test_reporting.py::test_dailyavg": true,
+  "test_reporting.py::test_dailyavg_1": true,
+  "test_reporting.py::test_dailyavg_2": true,
+  "test_reporting.py::test_dailyavg_3": true,
+  "test_reporting.py::test_dailyavg_4": true,
+  "test_reporting.py::test_dailyavg_5": true,
+  "test_reporting.py::test_dailyavg_6": true,
+  "test_reporting.py::test_dailyavg_7": true,
+  "test_reporting.py::test_dailyavg_8": true,
+  "test_reporting.py::test_dailyavg_9": true
+}

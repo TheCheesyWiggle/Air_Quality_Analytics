@@ -74,7 +74,7 @@ def find_cyan_pixels(*args,**kwargs):
     #return the cyan_pixels array
     return cyan_pixels
 
-#NOTE:docs and inline comments finished
+#NOTE:docs and inline comments finished 
 def detect_connected_components(*args,**kwargs):
     """
     
@@ -167,15 +167,18 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
                     array.append((x+i, y+j))
     #return array
     return array
-                
+
+#NOTE: docs and inline comments finished need  to add last bit of code to save the image
 def detect_connected_components_sorted(*args,**kwargs):
     """
     Parameters:
-    -
+    - Mark = Image with the connected components
     -
     Code:
     - 
-    - 
+    - Sorts the connected components by the number of pixels in the component
+    - Uses a bubble sort
+    - Saves the image with the connected components to a sorted file
     """
     MARK = args[0]
     dictionary = {}
