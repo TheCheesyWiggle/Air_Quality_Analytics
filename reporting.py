@@ -85,24 +85,30 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     Code: 
     - 
     """
+    #gets data for specified monitoring station
     station = data[monitoring_station]
+    # grabs the time data from the time column
     time = station["time"]
+    #grabs all the pollutant values
     poll_val = station[pollutant]
+    #sets up a dictionary with arrays with the hours so we can easily add the hours in
     hours={"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[], "13":[], "14":[], "15":[], "16":[], "17":[], "18":[], "19":[], "20":[], "21":[], "22":[], "23":[], "24":[]}
-    hourly_avg = []*24
-
+    #sets up final emtpy array
+    avg = []*24
+    #loops through time while giving an index for the equivalent in the pollant list
     for count, hour in enumerate(time):
+        # checks if the pollutant value has data
         if poll_val[count] != "No data":
             print(int(hour[:2]))
-            hourly_avg[int(hour[:2])].append(float(poll_val[count]))
-        else:
-            hourly_avg[int(hour[:2])].append(float(0))
-        
-    for hr in hours:
-        hourly_avg.append(utils.meannvalue(hours[hr]))
+            # adds the data value
+            hours[hour[:2]].append(float(poll_val[count]))
 
-    print(type(hourly_avg))
-    return hourly_avg
+    # adds the mean values to the fianl array   
+    for hr in hours:
+        avg.append(float(utils.meannvalue(hours[hr])))
+    #returns array of mean values
+    print(avg)
+    return avg
 
 def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
@@ -115,10 +121,16 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     Code: 
     -
     """
+    # grabs the correct stations data
     station = data[monitoring_station]
+    # grabs all the pollutant values
     poll_val = station[pollutant]
+    # grabs date valeus
     date = station["date"]
-    monthly_avg = []
+    # dictionary of months
+    months = {"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[]}
+    #
+    monthly_avg = []*12
     prev_month = "01"
     temp=[]
 
@@ -126,12 +138,15 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
         month = month.split("-")[1]
         if poll_val[index] != "No data":
             if month == prev_month:
-                temp.append(float(poll_val[index]))
+                months[month].append(float(poll_val[index]))
             else:
-                monthly_avg.append(utils.meannvalue(temp))
-                temp = []
-                temp.append(poll_val[index])
+                months[month].append(float(poll_val[index]))
                 prev_month = month
+
+    for m in months:
+        monthly_avg.append(float(utils.meannvalue(months[m])))
+    
+    return monthly_avg
 
         
     #get the keys of each month in the date key

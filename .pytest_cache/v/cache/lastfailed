@@ -1,21 +1,4 @@
 {
   "test_reporting.py::test_dailyavg": true,
-  "test_reporting.py::test_hourlyavg_1": true,
-  "test_reporting.py::test_hourlyavg_2": true,
-  "test_reporting.py::test_hourlyavg_3": true,
-  "test_reporting.py::test_hourlyavg_4": true,
-  "test_reporting.py::test_hourlyavg_5": true,
-  "test_reporting.py::test_hourlyavg_6": true,
-  "test_reporting.py::test_hourlyavg_7": true,
-  "test_reporting.py::test_hourlyavg_8": true,
-  "test_reporting.py::test_hourlyavg_9": true,
-  "test_reporting.py::test_monthlyavg_1": true,
-  "test_reporting.py::test_monthlyavg_2": true,
-  "test_reporting.py::test_monthlyavg_3": true,
-  "test_reporting.py::test_monthlyavg_4": true,
-  "test_reporting.py::test_monthlyavg_5": true,
-  "test_reporting.py::test_monthlyavg_6": true,
-  "test_reporting.py::test_monthlyavg_7": true,
-  "test_reporting.py::test_monthlyavg_8": true,
-  "test_reporting.py::test_monthlyavg_9": true
+  "test_reporting.py::test_monthlyavg_5": true
 }
