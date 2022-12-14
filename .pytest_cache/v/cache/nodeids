@@ -1,4 +1,6 @@
 [
+  "test_intelligence.py::test_detectconnectedcomponents_1",
+  "test_intelligence.py::test_detectconnectedcomponents_2",
   "test_intelligence.py::test_findcyanpixels_1",
   "test_intelligence.py::test_findredpixels_1",
   "test_reporting.py::test_countmissing_1",

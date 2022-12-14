@@ -2,5 +2,10 @@
   "test_reporting.py::test_dailyavg": true,
   "test_reporting.py::test_peakhourdate_1": true,
   "test_reporting.py::test_peakhourdate_2": true,
-  "test_reporting.py::test_peakhourdate_3": true
+  "test_reporting.py::test_peakhourdate_3": true,
+  "test_intelligence.py::test_detectconnectedcomponents_1": true,
+  "test_intelligence.py::test_detectconnectedcomponents_2": true,
+  "test_reporting.py::test_dailyavg_4": true,
+  "test_reporting.py::test_dailyavg_5": true,
+  "test_reporting.py::test_dailyavg_6": true
 }
