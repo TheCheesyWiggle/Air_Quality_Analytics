@@ -37,7 +37,6 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
             temp.append(float(i))
         else:
             count += 1
-            temp.append(float(0))
     return daily_avg
 
 def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
@@ -71,7 +70,6 @@ def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
             temp.append(float(i))
         else:
             count += 1
-            temp.append(float(0))
     return daily_med
 
 def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
