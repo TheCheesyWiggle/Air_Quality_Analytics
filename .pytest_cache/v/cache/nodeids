@@ -1,4 +1,15 @@
 [
+  "test_intelligence.py::test_findcyanpixels_1",
+  "test_intelligence.py::test_findredpixels_1",
+  "test_reporting.py::test_countmissing_1",
+  "test_reporting.py::test_countmissing_2",
+  "test_reporting.py::test_countmissing_3",
+  "test_reporting.py::test_countmissing_4",
+  "test_reporting.py::test_countmissing_5",
+  "test_reporting.py::test_countmissing_6",
+  "test_reporting.py::test_countmissing_7",
+  "test_reporting.py::test_countmissing_8",
+  "test_reporting.py::test_countmissing_9",
   "test_reporting.py::test_dailyavg",
   "test_reporting.py::test_dailyavg_1",
   "test_reporting.py::test_dailyavg_2",
@@ -35,5 +46,8 @@
   "test_reporting.py::test_monthlyavg_6",
   "test_reporting.py::test_monthlyavg_7",
   "test_reporting.py::test_monthlyavg_8",
-  "test_reporting.py::test_monthlyavg_9"
+  "test_reporting.py::test_monthlyavg_9",
+  "test_reporting.py::test_peakhourdate_1",
+  "test_reporting.py::test_peakhourdate_2",
+  "test_reporting.py::test_peakhourdate_3"
 ]

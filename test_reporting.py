@@ -1,5 +1,4 @@
-import pytest
-from reporting import daily_average, daily_median, hourly_average, monthly_average
+from reporting import daily_average, daily_median, hourly_average, monthly_average, peak_hour_date, count_missing_data
 import utils
 
 def test_dailyavg_1():
@@ -181,3 +180,63 @@ def test_monthlyavg_9():
     data = utils.csvs_to_dict()
     # Test the monthly_avg function for london N kensingnton with pm25 pollutant
     assert len(monthly_average(data,"London N Kensington", "pm25")) == 12
+
+def test_peakhourdate_1():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london N kensingnton with pm25 pollutant
+    assert type(peak_hour_date(data,"2021-09-01","London N Kensington", "pm25")) == int
+
+def test_peakhourdate_2():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london N kensingnton with pm25 pollutant
+    assert type(peak_hour_date(data,"2021-01-06","London Harlington", "pm10")) == int
+
+def test_peakhourdate_3():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london N kensingnton with pm25 pollutant
+    assert type(peak_hour_date(data,"2021-05-26","London Marylebone Road", "no")) == int
+
+def test_countmissing_1():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london Harlington with pm25 pollutant
+    assert type(count_missing_data(data,"London Harlington","no")) == int
+
+def test_countmissing_2():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london Harlington with pm25 pollutant
+    assert type(count_missing_data(data,"London Harlington","pm10")) == int
+
+def test_countmissing_3():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london harlington with pm25 pollutant
+    assert type(count_missing_data(data,"London Harlington","pm25")) == int
+
+def test_countmissing_4():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london marylebone road with pm25 pollutant
+    assert type(count_missing_data(data,"London Marylebone Road","no")) == int
+
+def test_countmissing_5():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london marylebone road with pm25 pollutant
+    assert type(count_missing_data(data,"London Marylebone Road","pm10")) == int
+
+def test_countmissing_6():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london marylebone road with pm25 pollutant
+    assert type(count_missing_data(data,"London Marylebone Road","pm25")) == int
+
+def test_countmissing_7():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london  road withN Kensignton no pollutant
+    assert type(count_missing_data(data,"London N Kensington","no")) == int
+
+def test_countmissing_8():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london  road withN Kensignton pm10 pollutant
+    assert type(count_missing_data(data,"London N Kensington","pm10")) == int
+
+def test_countmissing_9():
+    data = utils.csvs_to_dict()
+    # Test the monthly_avg function for london  road withN Kensignton  pm25 pollutant
+    assert type(count_missing_data(data,"London N Kensington","pm25")) == int

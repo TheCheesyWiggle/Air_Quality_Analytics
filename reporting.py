@@ -37,6 +37,7 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
             temp.append(float(i))
         else:
             count += 1
+            temp.append(float(0))
     return daily_avg
 
 def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
@@ -140,6 +141,8 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
             else:
                 months[month].append(float(poll_val[index]))
                 prev_month = month
+        else:
+            months[month].append(float(0))
 
     for m in months:
         monthly_avg.append(float(utils.meannvalue(months[m])))

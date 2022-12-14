@@ -61,12 +61,18 @@ def minvalue(values:list):
     - Else if i is less than min the replace min with i
     - When loop is finished return min
     """
+    # the minimum flaot to infinity
     min = float('inf')
+    #loops through the values
     for i in values:
+        #checks type of the value
         if type(i) != float:
+            #raises exception on no numerical values
             raise Exception("Exception: Non numerical value found")
         else:
+            #checks if the current value is less than the minimum
             if i<min:
+                #sets current value to minimum
                 min = i
     return min
 

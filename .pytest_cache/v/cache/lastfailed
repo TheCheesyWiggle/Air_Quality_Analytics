@@ -1,4 +1,6 @@
 {
   "test_reporting.py::test_dailyavg": true,
-  "test_reporting.py::test_monthlyavg_5": true
+  "test_reporting.py::test_peakhourdate_1": true,
+  "test_reporting.py::test_peakhourdate_2": true,
+  "test_reporting.py::test_peakhourdate_3": true
 }
