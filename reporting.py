@@ -25,14 +25,19 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
     poll_val = station[pollutant]
     daily_avg, temp = [], []
     count = 0
+    # loops through pollutant values
     for i in poll_val:
+        # checks if we have looped the entire day
         if count == 23:
             count= 0
-            daily_avg.append(np.average(temp))
+            daily_avg.append(utils.meannvalue(temp))
             temp =[]
         elif i != "No data":
             count += 1
             temp.append(float(i))
+        else:
+            count += 1
+            temp.append(float(0))
     return daily_avg
 
 def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
@@ -54,16 +59,19 @@ def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
     poll_val = station[pollutant]
     daily_med, temp = [], []
     count = 0
+    # loops through pollutant values
     for i in poll_val:
-        if i == "No data":
-            print("No data")
-        elif count == 23:
+        # checks if we have looped the entire day
+        if count == 23:
             count= 0
             daily_med.append(np.median(temp))
-            temp = []
-        else:
+            temp =[]
+        elif i != "No data":
             count += 1
             temp.append(float(i))
+        else:
+            count += 1
+            temp.append(float(0))
     return daily_med
 
 def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
@@ -85,11 +93,15 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
 
     for count, hour in enumerate(time):
         if poll_val[count] != "No data":
-            hourly_avg[hour[:2]].append(float(poll_val[count]))
+            print(int(hour[:2]))
+            hourly_avg[int(hour[:2])].append(float(poll_val[count]))
+        else:
+            hourly_avg[int(hour[:2])].append(float(0))
         
     for hr in hours:
         hourly_avg.append(utils.meannvalue(hours[hr]))
 
+    print(type(hourly_avg))
     return hourly_avg
 
 def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
@@ -188,3 +200,7 @@ def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:s
     station[pollutant] = poll_val
     data[monitoring_station] = station
     return data
+
+if __name__ == '__main__':
+    dic = utils.csvs_to_dict()
+    hourly_average(dic, "London Harlington","no")
