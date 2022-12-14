@@ -5,7 +5,7 @@ import numpy as np
 # You should modify the functions below to match
 # the signatures determined by the project specification
 
-
+#NOTE: docs and inline comments finished
 def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
     """
     Parameters: 
@@ -29,17 +29,22 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
     for i in poll_val:
         # checks if we have looped the entire day
         if count == 23:
+            # resets count 
             count= 0
+            # added the mean value to daily_avg
             daily_avg.append(utils.meannvalue(temp))
+            #resets temporary array
             temp =[]
+        #checks of there is data 
         elif i != "No data":
             count += 1
             temp.append(float(i))
+        # if there isnt data just increment count by 1
         else:
             count += 1
-            temp.append(float(0))
     return daily_avg
 
+#NOTE: docs and inline comments finished
 def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
     """
     Parameters: 
@@ -63,16 +68,24 @@ def daily_median(data:dict, monitoring_station:str, pollutant:str) -> list:
     for i in poll_val:
         # checks if we have looped the entire day
         if count == 23:
+            # resets count
             count= 0
+            # adds daily median too daily med
             daily_med.append(np.median(temp))
+            # resets temp array
             temp =[]
+        #checks if there is data
         elif i != "No data":
+            # increment counter to keep track of the days
             count += 1
+            #adds value too temporary array
             temp.append(float(i))
         else:
+            # increments counter
             count += 1
     return daily_med
 
+#NOTE: docs and inline comments finished
 def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
     Parameters: 
@@ -82,7 +95,10 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     - polluntant = "no" = Nitric Oxide "PM10" = Inhalable partical matter <= 10µm  "PM25" = Inhalable partical matter <= 2.5µm 
     \n
     Code: 
-    - 
+    -
+    - Grabs all the data and puts it into an hour dictionary
+    - Averages the arrays in the dictionary
+    - Returns average for each hour across the entire dataset
     """
     #gets data for specified monitoring station
     station = data[monitoring_station]
@@ -108,6 +124,7 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     #returns array of mean values
     print(avg)
     return avg
+
 
 def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
@@ -149,10 +166,6 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     
     return monthly_avg
 
-        
-    #get the keys of each month in the date key
-    # uses these keys to find the corresponing values ion the correct pollutant column
-    return monthly_avg
 
 def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->int:
     """
@@ -173,6 +186,7 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
         if day == date:
             values.append(poll_val[index])
     return utils.maxvalue(values)
+
 
 def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     """
@@ -196,6 +210,7 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
         values.append(i)
     print(utils.countvalue(values, "No data"))
     return utils.countvalue(values, "No data")
+
 
 def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:str):
     """
