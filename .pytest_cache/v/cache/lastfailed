@@ -8,11 +8,6 @@
   "test_reporting.py::test_dailyavg_4": true,
   "test_reporting.py::test_dailyavg_5": true,
   "test_reporting.py::test_dailyavg_6": true,
-  "test_utils.py::test_sumvalues_1": true,
-  "test_utils.py::test_sumvalues_2": true,
   "test_utils.py::test_maxvalue_1": true,
-  "test_utils.py::test_maxvalue_2": true,
-  "test_utils.py::test_minvalue_1": true,
-  "test_utils.py::test_minvalue_2": true,
-  "test_utils.py::test_meanvalue_1": true
+  "test_utils.py::test_minvalue_2": true
 }

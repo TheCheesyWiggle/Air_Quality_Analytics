@@ -154,15 +154,15 @@ def reporting_menu():
     if choice == "DA":
         print(reporting.daily_average(data, monitoring_station, pollutant))
     elif choice == "DM":
-        reporting.daily_median(data, monitoring_station, pollutant)
+        print(reporting.daily_median(data, monitoring_station, pollutant))
     elif choice == "HA":
-        reporting.hourly_average(data, monitoring_station, pollutant)
+        print(reporting.hourly_average(data, monitoring_station, pollutant))
     elif choice == "MA":
-        reporting.monthly_average(data, monitoring_station, pollutant) 
+        print(reporting.monthly_average(data, monitoring_station, pollutant))
     elif choice == "PH":
         # enetered date is stored in the date variable
         date = input(fg.pink + decor.bold+"Please enter the date (yyyy-mm-dd): "+decor.reset+fg.lightgreen)
-        reporting.peak_hour_date(data, date, monitoring_station, pollutant) 
+        print(reporting.peak_hour_date(data, date, monitoring_station, pollutant))
     elif choice== "M":
         main_menu()
     else:

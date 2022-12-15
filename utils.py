@@ -18,18 +18,17 @@ def sumvalues(values:list)->int:
     - Else sum +=1
     - When loop is finished return sum
     """
-    # sets sum to 0
-    sum = 0
-    #loops through array
-    for i in values:
-        # checks if its s numerical data type
-        if type(i) != float:
-            raise Exception("Exception: Non numerical value found")
-        else:
+    
+    try:
+        sum = 0
+        #loops through array
+        for i in values:
             #adds value to sum
             sum += i
-    # returns integer
-    return sum
+        # returns integer
+        return sum
+    except TypeError:
+        raise Exception("Exception: Non numerical value found")
 
 #NOTE: docs and inline comments finished
 def maxvalue(values:list)-> float:
@@ -45,20 +44,16 @@ def maxvalue(values:list)-> float:
     - Else if i is greater than max the replace max with i
     - When loop is finished return max
     """
-    # sets max to 0
-    max = 0
-    #loops through values
-    for i in values:
-        # checsk if its a numerical data type
-        if type(i) != float:
-            raise Exception("Exception: Non numerical value found")
-        else:
-            # checks if the value is bigger than max
-            if i>max:
-                # overwrites max with new value
+    try:
+        max = 0
+        for i in values:
+        #checks if the current value is less than the minimum
+            if i<max:
+                #sets current value to minimum
                 max = i
-    # returns integer
-    return max
+        return max
+    except TypeError:
+        raise Exception("Exception: Non numerical value found")
 
 #NOTE: docs and inline comments finished
 def minvalue(values:list) -> float:
@@ -74,20 +69,17 @@ def minvalue(values:list) -> float:
     - Else if i is less than min the replace min with i
     - When loop is finished return min
     """
-    # the minimum flaot to infinity
-    min = float('inf')
-    #loops through the values
-    for i in values:
-        #checks type of the value
-        if type(i) != float:
-            #raises exception on no numerical values
-            raise Exception("Exception: Non numerical value found")
-        else:
-            #checks if the current value is less than the minimum
+    try:
+        min = float('inf')
+        for i in values:
+        #checks if the current value is less than the minimum
             if i<min:
                 #sets current value to minimum
                 min = i
-    return min
+        return min
+    except TypeError:
+        raise Exception("Exception: Non numerical value found")
+    
 
 #NOTE: docs and inline comments finished
 def meannvalue(values:list) -> float:
@@ -107,14 +99,16 @@ def meannvalue(values:list) -> float:
     try:
         #sets total to 0
         total = 0
+        count = 0
         # loops through values
         for i in values:
             #makes i a numerical data type
             float(i)
             # adds 1 to total
-            total += 1
+            total += i
+            count += 1
         #returns mean value
-        return total/len(values)
+        return total/count
     except :
         raise Exception("Exception: Non numerical value found")
 
