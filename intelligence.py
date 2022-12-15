@@ -96,6 +96,7 @@ def detect_connected_components(*args,**kwargs):
     Q = np.empty((2,0), dtype=list)
     #sets up a list for the connected components
     connected_components = []
+    component_counter = 1
     # loops through the pixels in the image
     for x, i in enumerate(IMG):
         for y, j in enumerate(i):
@@ -119,9 +120,10 @@ def detect_connected_components(*args,**kwargs):
                     for i in get_neighbors(q[0],q[1], IMG.shape):
                         # if the neighbour is a 1 and not marked mark the neighbour and add its x,y to the queueS
                         if IMG[i[0]][i[1]] == 1 and MARK[i[0]][i[1]] == 0:
-                                MARK[i[0]][i[1]] = 1
+                                MARK[i[0]][i[1]] = component_counter
                                 Q = np.append(Q,[i[0],i[1]])
                 # adds the number of pixels in the connected component to the list
+                component_counter += 1
                 connected_components.append(count)
     #opens a file 
     with open("data\\cc-output-2a.txt","w") as out_file:
@@ -181,6 +183,9 @@ def detect_connected_components_sorted(*args,**kwargs):
     - Saves the image with the connected components to a sorted file
     """
     MARK = args[0]
+    print(MARK)
+
+    
     dictionary = {}
     #Opens cc-output-2a.txt file
     with open("data\\cc-output-2a.txt","r") as in_file:
