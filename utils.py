@@ -32,7 +32,7 @@ def sumvalues(values:list)->int:
     return sum
 
 #NOTE: docs and inline comments finished
-def maxvalue(values:list)-> int:
+def maxvalue(values:list)-> float:
     """
     Parameters:
     -
@@ -61,7 +61,7 @@ def maxvalue(values:list)-> int:
     return max
 
 #NOTE: docs and inline comments finished
-def minvalue(values:list):
+def minvalue(values:list) -> float:
     """
     Parameters:
     -
@@ -90,7 +90,7 @@ def minvalue(values:list):
     return min
 
 #NOTE: docs and inline comments finished
-def meannvalue(values:list):
+def meannvalue(values:list) -> float:
     """
     Parameters:
     -

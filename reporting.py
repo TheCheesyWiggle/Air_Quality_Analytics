@@ -32,7 +32,7 @@ def daily_average(data:dict, monitoring_station:str, pollutant:str) -> list:
             # resets count 
             count= 0
             # added the mean value to daily_avg
-            daily_avg.append(utils.meannvalue(temp))
+            daily_avg.append(np.average(temp))
             #resets temporary array
             temp =[]
         #checks of there is data 
@@ -114,15 +114,12 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     for count, hour in enumerate(time):
         # checks if the pollutant value has data
         if poll_val[count] != "No data":
-            print(int(hour[:2]))
             # adds the data value
             hours[hour[:2]].append(float(poll_val[count]))
-
     # adds the mean values to the fianl array   
     for hr in hours:
-        avg.append(float(utils.meannvalue(hours[hr])))
+        avg.append(float(np.average(hours[hr])))
     #returns array of mean values
-    print(avg)
     return avg
 
 #NOTE: docs and inline comments finished
@@ -170,12 +167,12 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
             months[month].append(float(0))
     # loops through dictionary and gets mean values for the arraysd
     for m in months:
-        monthly_avg.append(float(utils.meannvalue(months[m])))
+        monthly_avg.append(float(np.average(months[m])))
     
     return monthly_avg
 
 #NOTE: docs and inline comments finished
-def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->int:
+def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->float:
     """
     Parameters: 
     -                                               
@@ -231,7 +228,7 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     #counts values through utils function
     return utils.countvalue(values, "No data")
 
-#NOTE: docs and inline comments
+#NOTE: docs and inline comments finished
 def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:str):
     """
     Parameters: 

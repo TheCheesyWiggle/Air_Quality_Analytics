@@ -3,6 +3,9 @@
   "test_intelligence.py::test_detectconnectedcomponents_2",
   "test_intelligence.py::test_findcyanpixels_1",
   "test_intelligence.py::test_findredpixels_1",
+  "test_monitoring.py::test_getlivedatafromradar_1",
+  "test_monitoring.py::test_getlivedatahourly_1",
+  "test_monitoring.py::test_getlivedatapollpolt_1",
   "test_reporting.py::test_countmissing_1",
   "test_reporting.py::test_countmissing_2",
   "test_reporting.py::test_countmissing_3",
@@ -51,5 +54,15 @@
   "test_reporting.py::test_monthlyavg_9",
   "test_reporting.py::test_peakhourdate_1",
   "test_reporting.py::test_peakhourdate_2",
-  "test_reporting.py::test_peakhourdate_3"
+  "test_reporting.py::test_peakhourdate_3",
+  "test_utils.py::test_countvalue_1",
+  "test_utils.py::test_countvalue_2",
+  "test_utils.py::test_maxvalue_1",
+  "test_utils.py::test_maxvalue_2",
+  "test_utils.py::test_meanvalue_1",
+  "test_utils.py::test_meanvalue_2",
+  "test_utils.py::test_minvalue_1",
+  "test_utils.py::test_minvalue_2",
+  "test_utils.py::test_sumvalues_1",
+  "test_utils.py::test_sumvalues_2"
 ]
