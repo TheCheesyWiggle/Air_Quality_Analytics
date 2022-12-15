@@ -86,7 +86,7 @@ def detect_connected_components(*args,**kwargs):
     
     Code:
     -
-    - Gets the connected components of a sepciifc colour in an image
+    - Gets the connected components of a specific colour in an image
 """
     # gives use IMG variable
     IMG = args[0]
@@ -120,6 +120,7 @@ def detect_connected_components(*args,**kwargs):
                     for i in get_neighbors(q[0],q[1], IMG.shape):
                         # if the neighbour is a 1 and not marked mark the neighbour and add its x,y to the queueS
                         if IMG[i[0]][i[1]] == 1 and MARK[i[0]][i[1]] == 0:
+                                #sets mark to the number of the component to keep track of them
                                 MARK[i[0]][i[1]] = component_counter
                                 Q = np.append(Q,[i[0],i[1]])
                 # adds the number of pixels in the connected component to the list
@@ -217,12 +218,15 @@ def detect_connected_components_sorted(*args,**kwargs):
     print(fg.cyan+f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
     print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels"+decor.reset)
 
-    return MARK
-    """
-    Remove everything else from mark
-    save mark
-    """
-    io.imsave("data//cc-top-2.jpg",MARK)
+    top2 = np.zeros((MARK.shape[0],MARK.shape[1]))
+
+    for x ,i in enumerate(MARK):
+        for y, j in enumerate(i):
+            if j == biggest[0]:
+                top2[x][y] = 1
+            if j == second_biggest[0]:
+                top2[x][y] = 1
+    io.imsave("data//cc-top-2.jpg",top2)
 
 #NOTE:docs and inline comments finished
 def bubble_sort(dictionary:dict)->tuple:
