@@ -1,4 +1,5 @@
 [
+  "test_intelligence.py::test_bubblesort_1",
   "test_intelligence.py::test_detectconnectedcomponents_1",
   "test_intelligence.py::test_detectconnectedcomponents_2",
   "test_intelligence.py::test_findcyanpixels_1",

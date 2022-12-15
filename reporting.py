@@ -185,20 +185,23 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
     - Gets all the data for the day and puts it in an array
     - Gets the max value from the array
     """
-    # grabs required station data
-    station = data[monitoring_station]
-    # grabs required polluntant data
-    poll_val = station[pollutant]
-    # empty array
-    values =[]
-    # loops through the data
-    for index, day in enumerate(station["date"]):
-        # checks date
-        if day == date:
-            # adds values to the empty array
-            values.append(poll_val[index])
-    # returns max values
-    return utils.maxvalue(values)
+    try:
+        # grabs required station data
+        station = data[monitoring_station]
+        # grabs required polluntant data
+        poll_val = station[pollutant]
+        # empty array
+        values =[]
+        # loops through the data
+        for index, day in enumerate(station["date"]):
+            # checks date
+            if day == date:
+                # adds values to the empty array
+                values.append(poll_val[index])
+        # returns max values
+        return utils.maxvalue(values)
+    except TypeError:
+        raise Exception("Exception: Non numerical value found")
 
 #NOTE: docs and inline comments finished
 def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:

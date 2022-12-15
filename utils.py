@@ -79,7 +79,6 @@ def minvalue(values:list) -> float:
         return min
     except TypeError:
         raise Exception("Exception: Non numerical value found")
-    
 
 #NOTE: docs and inline comments finished
 def meannvalue(values:list) -> float:
