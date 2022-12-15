@@ -18,7 +18,7 @@ import numpy as np
 import utils
 import matplotlib.pyplot as plt
 
-
+#NOTE: docs and inline comments finished
 def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     """
     Return data from the LondonAir API using its AirQuality API. 
@@ -28,19 +28,24 @@ def get_live_data_pollutant_plot(site_code='MY1',start_date=None,end_date=None):
     In order to use this function you first have to install the `requests` library.
     This code is provided as-is. 
     """
+    #sets start date if no data if passed in
     start_date = datetime.date.today() if start_date is None else start_date
+    #sets end date if no data is passed in
     end_date = start_date + datetime.timedelta(days=1) if end_date is None else end_date
+    #url endpoint for api
     endpoint = "http://api.erg.ic.ac.uk/AirQuality/Data/Site/SiteCode={site_code}/StartDate={start_date}/EndDate={end_date}/Json"
-
+    #formatter for url
     url = endpoint.format(
         site_code = site_code,
         start_date = start_date,
         end_date = end_date
     )
-    
+    # gets data from url
     res = requests.get(url)
+    # returns data in json format
     return res.json()
 
+#NOTE: docs and inline comments finished
 def get_live_data_from_api_hourly():
     """
     Code:
@@ -49,10 +54,14 @@ def get_live_data_from_api_hourly():
     - requests the data from the api
     - returns json data
     """
+    # url for api
     url ="http://api.erg.ic.ac.uk/AirQuality/Hourly/MonitoringIndex/GroupName=London/Json"
+    #gets data
     res = requests.get(url)
+    #returns data in json format
     return res.json()
 
+#NOTE: docs and inline comments finished
 def get_live_data_from_api_radar(site_code_1 = None, site_code_2 = None):
     """
     Code:
@@ -73,6 +82,7 @@ def get_live_data_from_api_radar(site_code_1 = None, site_code_2 = None):
     #returns the json data
     return res_1.json(), res_2.json()
 
+#NOTE: docs and inline comments finished
 def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     """
     Code:
@@ -110,6 +120,7 @@ def pollutant_plot(site_code=None, start=None, end=None, species_code=None,):
     plt.plot(variables['dates'], variables['values'])
     plt.show()
 
+#NOTE: docs and inline comments finished
 def hourly_data()->dict:
     """
     Code:
@@ -152,6 +163,7 @@ def hourly_data()->dict:
                 data[i['Site']['@SiteName']+" "+i['Site']['@SiteCode']] = temp
     return data
 
+#NOTE: docs and inline comments finished
 def hourly_formatted(data:dict, site_code:str, species_code:str):
     """
     Parameters:
@@ -175,6 +187,7 @@ def hourly_formatted(data:dict, site_code:str, species_code:str):
                 #outputs data
                 print("The air quality band for this site is:",data[i][species_code])
 
+#NOTE: docs and inline comments finished
 def radar_chart_data(site_code_1:str, site_code_2:str,):
     """
     Parameters:
@@ -184,6 +197,7 @@ def radar_chart_data(site_code_1:str, site_code_2:str,):
     Code:
     -
     - Gets data fromm api and stores it in a dictionary
+    - Returns stations data
     """
     #Creates a dictionarys to store the data
     stations={}
@@ -197,6 +211,7 @@ def radar_chart_data(site_code_1:str, site_code_2:str,):
     # returns the dictionary with the stations
     return stations
 
+#NOTE: docs and inline comments finished
 def get_values(data:dict)->dict:
     """
     Parameters:
@@ -214,6 +229,7 @@ def get_values(data:dict)->dict:
     #returns the temporary dictionary
     return temp
 
+#NOTE: docs and inline comments finished
 def plot_radar_chart(stations:dict):
     """
     Code:
@@ -267,6 +283,7 @@ def plot_radar_chart(stations:dict):
     # shows plot
     plt.show()
 
+#NOTE: docs and inline comments finished
 def fill_missing_data(station_list:list)->list:
     """
     Parameters:

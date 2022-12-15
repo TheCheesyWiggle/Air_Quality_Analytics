@@ -125,7 +125,7 @@ def hourly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     print(avg)
     return avg
 
-
+#NOTE: docs and inline comments finished
 def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     """
     Parameters: 
@@ -136,6 +136,7 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     \n
     Code: 
     -
+    - Gets all the data from the api and sorts it by month
     """
     # grabs the correct stations data
     station = data[monitoring_station]
@@ -145,28 +146,35 @@ def monthly_average(data:dict, monitoring_station:str, pollutant:str)->list:
     date = station["date"]
     # dictionary of months
     months = {"01":[],"02":[],"03":[],"04":[],"05":[],"06":[], "07":[], "08":[], "09":[], "10":[], "11":[], "12":[]}
-    #
+    # sets up empty array with 12 values
     monthly_avg = []*12
+    #sets month to jan
     prev_month = "01"
-    temp=[]
-
+    # loops through the data
     for index, month  in enumerate(date):
+        #gets the month from the date
         month = month.split("-")[1]
+        # checks if there is data
         if poll_val[index] != "No data":
+            #checks if we are in the same month
             if month == prev_month:
+                #adds value to the dictionary
                 months[month].append(float(poll_val[index]))
             else:
-                months[month].append(float(poll_val[index]))
+                # changes month
                 prev_month = month
+                # adds value to the dictionary
+                months[month].append(float(poll_val[index]))      
         else:
-            months[month].append(float(0))
 
+            months[month].append(float(0))
+    # loops through dictionary and gets mean values for the arraysd
     for m in months:
         monthly_avg.append(float(utils.meannvalue(months[m])))
     
     return monthly_avg
 
-
+#NOTE: docs and inline comments finished
 def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->int:
     """
     Parameters: 
@@ -177,17 +185,25 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
     \n
     Code:
     -
+    - Gets all the data for the day and puts it in an array
+    - Gets the max value from the array
     """
-    # grab all values form one day and compare
+    # grabs required station data
     station = data[monitoring_station]
+    # grabs required polluntant data
     poll_val = station[pollutant]
+    # empty array
     values =[]
+    # loops through the data
     for index, day in enumerate(station["date"]):
+        # checks date
         if day == date:
+            # adds values to the empty array
             values.append(poll_val[index])
+    # returns max values
     return utils.maxvalue(values)
 
-
+#NOTE: docs and inline comments finished
 def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     """
     Parameters: 
@@ -202,16 +218,20 @@ def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
     - Appends just the pollutant value to values
     - Returns countvalue in utils with values and 'No data' as parameters
     """
-    ## loop through dict to find missing data
+    # gets all the data for the required station
     station = data[monitoring_station]
+    # gets all pollutant data
     poll_val = station[pollutant]
+    # sets up empty array
     values =[]
+    # loops through pollutant values
     for i in poll_val:
+        #adds value to empty array
         values.append(i)
-    print(utils.countvalue(values, "No data"))
+    #counts values through utils function
     return utils.countvalue(values, "No data")
 
-
+#NOTE: docs and inline comments
 def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:str):
     """
     Parameters: 
@@ -222,14 +242,24 @@ def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:s
     \n
     Code:
     - 
+    - Finds values equal to No data
+    - Overwrites values with new data
     """
+    # gets all data for the required station
     station = data[monitoring_station]
+    # gets data for the pollutants
     poll_val = station[pollutant]
+    # loops through pollutants
     for index, value in enumerate(poll_val):
+        # checks if there is data
         if value == "No data":
+            # Overwrites the data in poll_val
             poll_val[index] = new_value
+    # overwites data in station[pollutant] structure
     station[pollutant] = poll_val
+    # overwrites data in the data[monitoring station] structure
     data[monitoring_station] = station
+    #returns data
     return data
 
 if __name__ == '__main__':

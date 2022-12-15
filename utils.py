@@ -4,7 +4,7 @@ import os
 # You should modify the functions below to match
 # the signatures determined by the project specification
 
-
+#NOTE: docs and inline comments finished
 def sumvalues(values:list)->int:
     """
     Parameters:
@@ -18,14 +18,20 @@ def sumvalues(values:list)->int:
     - Else sum +=1
     - When loop is finished return sum
     """
+    # sets sum to 0
     sum = 0
+    #loops through array
     for i in values:
+        # checks if its s numerical data type
         if type(i) != float:
             raise Exception("Exception: Non numerical value found")
         else:
+            #adds value to sum
             sum += i
+    # returns integer
     return sum
 
+#NOTE: docs and inline comments finished
 def maxvalue(values:list)-> int:
     """
     Parameters:
@@ -39,15 +45,22 @@ def maxvalue(values:list)-> int:
     - Else if i is greater than max the replace max with i
     - When loop is finished return max
     """
+    # sets max to 0
     max = 0
+    #loops through values
     for i in values:
+        # checsk if its a numerical data type
         if type(i) != float:
             raise Exception("Exception: Non numerical value found")
         else:
+            # checks if the value is bigger than max
             if i>max:
+                # overwrites max with new value
                 max = i
+    # returns integer
     return max
 
+#NOTE: docs and inline comments finished
 def minvalue(values:list):
     """
     Parameters:
@@ -76,6 +89,7 @@ def minvalue(values:list):
                 min = i
     return min
 
+#NOTE: docs and inline comments finished
 def meannvalue(values:list):
     """
     Parameters:
@@ -89,16 +103,22 @@ def meannvalue(values:list):
     - Else adds i to total
     - When loop is finished return total divided by the length of values
     """
-
+    # try block catches error during execution
     try:
+        #sets total to 0
         total = 0
+        # loops through values
         for i in values:
+            #makes i a numerical data type
             float(i)
+            # adds 1 to total
             total += 1
+        #returns mean value
         return total/len(values)
     except :
         raise Exception("Exception: Non numerical value found")
 
+#NOTE: docs finished
 def countvalue(values:list,x)->int:
     """
     Parameters:
@@ -118,6 +138,7 @@ def countvalue(values:list,x)->int:
             count +=1
     return count
 
+#NOTE: docs finished
 def csvs_to_dict()->dict:
     """
     Parameters: 

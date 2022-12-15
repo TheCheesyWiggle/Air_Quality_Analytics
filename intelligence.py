@@ -171,7 +171,7 @@ def get_neighbors(x:int,y:int, size:tuple)->list:
     #return array
     return array
 
-#NOTE: docs and inline comments finished need  to add last bit of code to save the image
+#NOTE: docs and inline comments finished
 def detect_connected_components_sorted(*args,**kwargs):
     """
     Parameters:
@@ -218,14 +218,17 @@ def detect_connected_components_sorted(*args,**kwargs):
     print(fg.cyan+f"The biggest connected component is {biggest[0]} with {biggest[1]} pixels")
     print(f"The second biggest connected component is {second_biggest[0]} with {second_biggest[1]} pixels"+decor.reset)
 
+    # create a array of zeros with the same shape as mark 
     top2 = np.zeros((MARK.shape[0],MARK.shape[1]))
-
+    #loops through mark
     for x ,i in enumerate(MARK):
         for y, j in enumerate(i):
+            #checks if the  components are the ones we are looking for
             if j == biggest[0]:
                 top2[x][y] = 1
             if j == second_biggest[0]:
                 top2[x][y] = 1
+    # save new array
     io.imsave("data//cc-top-2.jpg",top2)
 
 #NOTE:docs and inline comments finished
@@ -237,7 +240,7 @@ def bubble_sort(dictionary:dict)->tuple:
 
     Code:
     - 
-    -  Bublesort sorts the components by the number of pixels
+    - Bublesort sorts the components by the number of pixels
     - Sorts 2 arrays in tandem
 
     """
