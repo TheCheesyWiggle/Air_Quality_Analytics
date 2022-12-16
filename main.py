@@ -252,7 +252,7 @@ def about():
     Code:
     - Prints the module and candidate number
     """
-    print(decor.reset+ fg.cyan+"Module: ECM1400 \nCandidate Number: 720019013"+decor.reset)
+    print(decor.reset+ fg.cyan+"Module: ECM1400 \nCandidate Number: 227704"+decor.reset)
     return main_menu()
 
 #NOTE:docs and inline comments finished
