@@ -185,23 +185,20 @@ def peak_hour_date(data:dict, date:str, monitoring_station:str, pollutant:str)->
     - Gets all the data for the day and puts it in an array
     - Gets the max value from the array
     """
-    try:
-        # grabs required station data
-        station = data[monitoring_station]
-        # grabs required polluntant data
-        poll_val = station[pollutant]
-        # empty array
-        values =[]
-        # loops through the data
-        for index, day in enumerate(station["date"]):
-            # checks date
-            if day == date:
-                # adds values to the empty array
-                values.append(poll_val[index])
-        # returns max values
-        return utils.maxvalue(values)
-    except TypeError:
-        raise Exception("Exception: Non numerical value found")
+    # grabs required station data
+    station = data[monitoring_station]
+    # grabs required polluntant data
+    poll_val = station[pollutant]
+    # empty array
+    values =[]
+    # loops through the data
+    for index, day in enumerate(station["date"]):
+        # checks date
+        if day == date:
+            # adds values to the empty array
+            values.append(float(poll_val[index]))
+    # returns max values
+    return utils.maxvalue(values)
 
 #NOTE: docs and inline comments finished
 def count_missing_data(data:dict, monitoring_station:str, pollutant:str)->int:
@@ -264,4 +261,4 @@ def fill_missing_data(data:dict, new_value,  monitoring_station:str, pollutant:s
 
 if __name__ == '__main__':
     dic = utils.csvs_to_dict()
-    hourly_average(dic, "London Harlington","no")
+    print(peak_hour_date(dic,"2021-09-01","London N Kensington", "pm25"))

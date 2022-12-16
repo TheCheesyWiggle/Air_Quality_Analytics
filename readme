@@ -1,12 +1,7 @@
 # TODO
-monitoring testing - half done
 
-test_maxvalue_1
-test_minvalue_2
+linked to test_maxvalue_1
+    test_peakhourdate_1
+    test_peakhourdate_2
+    test_peakhourdate_3
 
-test_peakhourdate_1
-test_peakhourdate_2
-test_peakhourdate_3
-
-test_detectconnectedcomponents_1
-test_detectconnectedcomponents_2

@@ -184,17 +184,17 @@ def test_monthlyavg_9():
 def test_peakhourdate_1():
     data = utils.csvs_to_dict()
     # Test the monthly_avg function for london N kensingnton with pm25 pollutant
-    assert type(peak_hour_date(data,"2021-09-01","London N Kensington", "pm25")) == int
+    assert type(peak_hour_date(data,"2021-09-01","London N Kensington", "pm25")) == float
 
 def test_peakhourdate_2():
     data = utils.csvs_to_dict()
     # Test the monthly_avg function for london N kensingnton with pm25 pollutant
-    assert type(peak_hour_date(data,"2021-01-06","London Harlington", "pm10")) == int
+    assert type(peak_hour_date(data,"2021-01-06","London Harlington", "pm10")) == float
 
 def test_peakhourdate_3():
     data = utils.csvs_to_dict()
     # Test the monthly_avg function for london N kensingnton with pm25 pollutant
-    assert type(peak_hour_date(data,"2021-05-26","London Marylebone Road", "no")) == int
+    assert type(peak_hour_date(data,"2021-05-26","London Marylebone Road", "no")) == float
 
 def test_countmissing_1():
     data = utils.csvs_to_dict()

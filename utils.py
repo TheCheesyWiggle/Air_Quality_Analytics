@@ -31,7 +31,7 @@ def sumvalues(values:list)->int:
         raise Exception("Exception: Non numerical value found")
 
 #NOTE: docs and inline comments finished
-def maxvalue(values:list)-> float:
+def maxvalue(values:list)->float:
     """
     Parameters:
     -
@@ -48,7 +48,7 @@ def maxvalue(values:list)-> float:
         max = 0
         for i in values:
         #checks if the current value is less than the minimum
-            if i<max:
+            if i>max:
                 #sets current value to minimum
                 max = i
         return max

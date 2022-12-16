@@ -22,7 +22,7 @@ def test_minvalue_1():
 
 def test_minvalue_2():
     #tests that the correct datatype is returned
-    assert type(minvalue([23,4,23,55,63,3]))== float
+    assert type(minvalue([23,4,23,55,63,3]))== int
 
 def test_meanvalue_1():
     # tests for one list
